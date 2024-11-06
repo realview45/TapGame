@@ -22,6 +22,9 @@ class AURA_API AHA10_Enemy : public AMyCharacterBase_HA10, public IEnemyInterfac
 
 	//13
 public:
+	//15
+	AHA10_Enemy();
+
 	virtual void HighlightActor() override;
 	virtual void UnHighlightActor() override;
 
