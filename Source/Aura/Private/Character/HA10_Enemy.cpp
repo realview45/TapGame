@@ -5,8 +5,9 @@
 //13
 void AHA10_Enemy::HighlightActor()
 {
-
+	bHighlighted = true;
 }
 void AHA10_Enemy::UnHighlightActor()
 {
+	bHighlighted = false;
 }

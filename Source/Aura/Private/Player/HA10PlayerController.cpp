@@ -7,10 +7,18 @@
 //11
 #include "EnhancedInputComponent.h"
 
+//14
+#include "Interaction/EnemyInterface.h"
+
 AHA10PlayerController::AHA10PlayerController()
 {
 	bReplicates = true;
 
+}
+//14
+void AHA10PlayerController::PlayerTick(float DeltaTime)
+{
+	CursorTrace();
 }
 
 void AHA10PlayerController::BeginPlay()
@@ -55,5 +63,48 @@ void AHA10PlayerController::Move(const FInputActionValue& InputActionValue)
 	{
 		ControlledPawn->AddMovementInput(ForwardDirection, InputAxisVector.Y);
 		ControlledPawn->AddMovementInput(RightDirection, InputAxisVector.X);
+	}
+}
+//14
+void AHA10PlayerController::CursorTrace()
+{
+	FHitResult CursorHit;
+	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
+	if (!CursorHit.bBlockingHit)return;
+	LastActor = ThisActor;
+	ThisActor = CursorHit.GetActor();
+
+	if (LastActor == nullptr)
+	{
+		if (ThisActor != nullptr)
+		{
+			//B
+			ThisActor->HighlightActor();
+		}
+		else
+		{
+			//A
+		}
+	}
+	else
+	{
+		if (ThisActor == nullptr)
+		{
+			//C
+			LastActor->UnHighlightActor();
+		}
+		else
+		{
+			if (LastActor != ThisActor)
+			{
+				//D
+				LastActor->UnHighlightActor();
+				ThisActor->HighlightActor();
+			}
+			else
+			{
+				//E
+			}
+		}
 	}
 }
