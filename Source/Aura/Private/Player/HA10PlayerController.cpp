@@ -18,6 +18,7 @@ AHA10PlayerController::AHA10PlayerController()
 //14
 void AHA10PlayerController::PlayerTick(float DeltaTime)
 {
+	Super::PlayerTick(DeltaTime);
 	CursorTrace();
 }
 
