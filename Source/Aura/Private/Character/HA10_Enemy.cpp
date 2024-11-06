@@ -4,9 +4,18 @@
 #include "Character/HA10_Enemy.h"
 //15
 #include "Aura/Aura.h"
+//21
+#include "AbilitySystem/HA10AbilitySystemComponent.h"
+#include "AbilitySystem/HA10AttributeSet.h"
+
 AHA10_Enemy::AHA10_Enemy()
 {
 	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
+	//21
+	AbilitySystemComponent = CreateDefaultSubobject<UHA10AbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent->SetIsReplicated(true);
+
+	AttributeSet = CreateDefaultSubobject<UHA10AttributeSet>("AttributeSet");
 }
 //13
 void AHA10_Enemy::HighlightActor()

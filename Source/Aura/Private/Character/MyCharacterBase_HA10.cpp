@@ -20,6 +20,11 @@ AMyCharacterBase_HA10::AMyCharacterBase_HA10()
 	Weapon2->SetupAttachment(GetMesh(), FName("WeaponHandSocket2"));
 	Weapon2->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
+//21-3
+UAbilitySystemComponent* AMyCharacterBase_HA10::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
 
 // Called when the game starts or when spawned
 void AMyCharacterBase_HA10::BeginPlay()
