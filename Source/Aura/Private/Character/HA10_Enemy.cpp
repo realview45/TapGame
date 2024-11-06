@@ -8,6 +8,7 @@
 #include "AbilitySystem/HA10AbilitySystemComponent.h"
 #include "AbilitySystem/HA10AttributeSet.h"
 
+
 AHA10_Enemy::AHA10_Enemy()
 {
 	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
@@ -41,4 +42,12 @@ void AHA10_Enemy::UnHighlightActor()
 	Weapon->SetRenderCustomDepth(false);
 	Weapon2->SetRenderCustomDepth(false);
 
+}
+
+//23
+void AHA10_Enemy::BeginPlay()
+{
+	Super::BeginPlay();
+	//check(AbilitySystemComponent);
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 }
