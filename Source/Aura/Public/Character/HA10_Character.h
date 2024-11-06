@@ -13,5 +13,8 @@ UCLASS()
 class AURA_API AHA10_Character : public AMyCharacterBase_HA10
 {
 	GENERATED_BODY()
-	
+
+//12
+public:
+	AHA10_Character();
 };
