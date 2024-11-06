@@ -16,6 +16,9 @@ AHA10_Enemy::AHA10_Enemy()
 	AbilitySystemComponent->SetIsReplicated(true);
 
 	AttributeSet = CreateDefaultSubobject<UHA10AttributeSet>("AttributeSet");
+
+	//22
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 }
 //13
 void AHA10_Enemy::HighlightActor()

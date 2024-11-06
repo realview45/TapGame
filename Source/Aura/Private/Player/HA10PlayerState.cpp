@@ -9,6 +9,8 @@ AHA10PlayerState::AHA10PlayerState()
 {
 	AbilitySystemComponent = CreateDefaultSubobject<UHA10AbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
+	//22
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 
 	AttributeSet = CreateDefaultSubobject<UHA10AttributeSet>("AttributeSet");
 
