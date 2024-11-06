@@ -17,4 +17,11 @@ class AURA_API AHA10_Character : public AMyCharacterBase_HA10
 //12
 public:
 	AHA10_Character();
+	//24
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
+
+//24
+private:
+	void InitAbilityActorInfo();
 };
