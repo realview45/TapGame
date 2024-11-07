@@ -25,11 +25,7 @@ void AHA10_Character::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 	//Init ability actor info for the server
-	AHA10PlayerState* HA10PlayerState = GetPlayerState<AHA10PlayerState>();
-	check(HA10PlayerState);
-	HA10PlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(HA10PlayerState, this);
-	AbilitySystemComponent = HA10PlayerState->GetAbilitySystemComponent();
-	AttributeSet = HA10PlayerState->GetAttributeSet();
+	InitAbilityActorInfo();
 }
 void AHA10_Character::OnRep_PlayerState()
 {
