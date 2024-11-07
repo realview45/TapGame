@@ -2,14 +2,17 @@
 
 
 #include "AbilitySystem/HA10AttributeSet.h"
-//25
-#include "AbilitySystemComponent.h"
+
 //25-2
 #include "Net/UnrealNetwork.h"
 
 UHA10AttributeSet::UHA10AttributeSet()
 {
-
+	//26 in accessors macro func InitHealth
+	InitHealth(100.f);
+	InitMaxHealth(100.f);
+	InitMana(200.f);
+	InitMaxMana(200.f);
 }
 //25-2
 void UHA10AttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
