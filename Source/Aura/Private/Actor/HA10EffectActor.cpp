@@ -4,6 +4,9 @@
 #include "Actor/HA10EffectActor.h"
 
 #include "Components/SphereComponent.h"
+//27-3
+#include "AbilitySystemInterface.h"
+#include "AbilitySystem/HA10AttributeSet.h"
 // Sets default values
 AHA10EffectActor::AHA10EffectActor()
 {
@@ -19,7 +22,16 @@ AHA10EffectActor::AHA10EffectActor()
 
 void AHA10EffectActor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-
+	//Shouldn't do this!! const_cast
+	//27-3
+	if (IAbilitySystemInterface* ASCInterface = Cast<IAbilitySystemInterface>(OtherActor))
+	{
+		//pure virtual function
+		const UHA10AttributeSet* HA10AttributeSet = Cast<UHA10AttributeSet>(ASCInterface->GetAbilitySystemComponent()->GetAttributeSet(UHA10AttributeSet::StaticClass()));
+		UHA10AttributeSet* MutableHA10AttributeSet = const_cast<UHA10AttributeSet*>(HA10AttributeSet);
+		MutableHA10AttributeSet->SetHealth(HA10AttributeSet->GetHealth() + 25.f);
+		Destroy();
+	}
 }
 
 void AHA10EffectActor::OutOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
