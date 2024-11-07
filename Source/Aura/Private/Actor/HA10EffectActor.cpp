@@ -22,12 +22,19 @@ void AHA10EffectActor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 
 }
 
+void AHA10EffectActor::OutOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+
+}
+
 // Called when the game starts or when spawned
 void AHA10EffectActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
 	Sphere->OnComponentBeginOverlap.AddDynamic(this, &AHA10EffectActor::OnOverlap);
+	Sphere->OnComponentEndOverlap.AddDynamic(this, &AHA10EffectActor::OutOverlap);
+
 }
 
 
