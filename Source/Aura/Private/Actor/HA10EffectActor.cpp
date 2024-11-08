@@ -59,7 +59,7 @@ void AHA10EffectActor::BeginPlay()
 
 }
 //38
-void AHA10EffectActor::ApplyEffectToTarget(AActor* Target, TSubclassOf<UGameplayEffect> GameplayEffectClass)
+void AHA10EffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass)
 {
 	//38
 	//IAbilitySystemInterface* ASCInterface = Cast<IAbilitySystemInterface>(Target);
@@ -68,7 +68,7 @@ void AHA10EffectActor::ApplyEffectToTarget(AActor* Target, TSubclassOf<UGameplay
 	//	ASCInterface->GetAbilitySystemComponent();
 	//	UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Target);
 	//}
-	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Target);
+	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
 	if(TargetASC == nullptr)return;
 	check(GameplayEffectClass);
 	FGameplayEffectContextHandle EffectContextHandle = TargetASC->MakeEffectContext();
