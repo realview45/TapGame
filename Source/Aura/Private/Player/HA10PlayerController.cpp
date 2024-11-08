@@ -28,8 +28,13 @@ void AHA10PlayerController::BeginPlay()
 
 	check(HA10Context);
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-	check(Subsystem);
-	Subsystem->AddMappingContext(HA10Context, 0);
+	//33-4
+	//check(Subsystem);
+	if (Subsystem)
+	{
+		Subsystem->AddMappingContext(HA10Context, 0);
+	}
+	//Subsystem->AddMappingContext(HA10Context, 0);
 
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
