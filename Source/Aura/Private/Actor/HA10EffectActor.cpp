@@ -30,6 +30,8 @@ void AHA10EffectActor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 		const UHA10AttributeSet* HA10AttributeSet = Cast<UHA10AttributeSet>(ASCInterface->GetAbilitySystemComponent()->GetAttributeSet(UHA10AttributeSet::StaticClass()));
 		UHA10AttributeSet* MutableHA10AttributeSet = const_cast<UHA10AttributeSet*>(HA10AttributeSet);
 		MutableHA10AttributeSet->SetHealth(HA10AttributeSet->GetHealth() + 25.f);
+		//36
+		MutableHA10AttributeSet->SetMana(HA10AttributeSet->GetMana() + 25.f);
 		Destroy();
 	}
 }

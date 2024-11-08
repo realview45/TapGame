@@ -12,6 +12,10 @@ void UOverlayHA10WidgetController::BroadcastInitialValues()
 	OnHealthChanged.Broadcast(HA10AttributeSet->GetHealth());
 	OnMaxHealthChanged.Broadcast(HA10AttributeSet->GetMaxHealth());
 
+	//36
+	OnManaChanged.Broadcast(HA10AttributeSet->GetMana());
+	OnMaxManaChanged.Broadcast(HA10AttributeSet->GetMaxMana());
+
 }
 //35
 void UOverlayHA10WidgetController::BindCallbacksToDependencies()
@@ -22,6 +26,12 @@ void UOverlayHA10WidgetController::BindCallbacksToDependencies()
 
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
 		HA10AttributeSet->GetMaxHealthAttribute()).AddUObject(this, &UOverlayHA10WidgetController::MaxHealthChanged);
+
+	//36
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
+		HA10AttributeSet->GetManaAttribute()).AddUObject(this, &UOverlayHA10WidgetController::ManaChanged);
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
+		HA10AttributeSet->GetMaxManaAttribute()).AddUObject(this, &UOverlayHA10WidgetController::MaxManaChanged);
 }
 //35-2
 void UOverlayHA10WidgetController::HealthChanged(const FOnAttributeChangeData& Data) const
@@ -32,4 +42,13 @@ void UOverlayHA10WidgetController::HealthChanged(const FOnAttributeChangeData& D
 void UOverlayHA10WidgetController::MaxHealthChanged(const FOnAttributeChangeData& Data) const
 {
 	OnMaxHealthChanged.Broadcast(Data.NewValue);
+}
+//36
+void UOverlayHA10WidgetController::ManaChanged(const FOnAttributeChangeData& Data) const
+{
+	OnManaChanged.Broadcast(Data.NewValue);
+}
+void UOverlayHA10WidgetController::MaxManaChanged(const FOnAttributeChangeData& Data) const
+{
+	OnMaxManaChanged.Broadcast(Data.NewValue);
 }
