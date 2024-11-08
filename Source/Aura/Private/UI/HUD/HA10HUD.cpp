@@ -12,6 +12,8 @@ UOverlayHA10WidgetController* AHA10HUD::GetOverlayWidgetController(const FWidget
 	{
 		OverlayWidgetController = NewObject<UOverlayHA10WidgetController>(this, OverlayWidgetControllerClass);
 		OverlayWidgetController->SetWidgetControllerParams(WCParams);
+		//35
+		OverlayWidgetController->BindCallbacksToDependencies();
 
 		return OverlayWidgetController;
 	}
@@ -32,7 +34,7 @@ void AHA10HUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySyst
 	UOverlayHA10WidgetController* OverlayHAWidgetController = GetOverlayWidgetController(WidgetControllerParams);
 
 	OverlayWidget->SetWidgetController(OverlayHAWidgetController);
-	//34
+	//34 
 	OverlayHAWidgetController->BroadcastInitialValues();
 
 	Widget->AddToViewport();

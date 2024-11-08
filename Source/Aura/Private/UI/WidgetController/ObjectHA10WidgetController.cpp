@@ -14,3 +14,8 @@ void UObjectHA10WidgetController::SetWidgetControllerParams(const FWidgetControl
 void UObjectHA10WidgetController::BroadcastInitialValues()
 {
 }
+
+void UObjectHA10WidgetController::BindCallbacksToDependencies()
+{
+
+}
