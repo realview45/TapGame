@@ -6,8 +6,16 @@
 #include "GameFramework/HUD.h"
 #include "HA10HUD.generated.h"
 
-
 class UHA10UserWidget;
+
+//33-2
+class UOverlayHA10WidgetController;
+struct FWidgetControllerParams;
+
+//33-3
+class UAttributeSet;
+class UAbilitySystemComponent;
+
 /**
  * 
  */
@@ -20,11 +28,23 @@ public:
 	UPROPERTY()
 	TObjectPtr<UHA10UserWidget> OverlayWidget;
 
-protected:
-	virtual void BeginPlay() override;
+	//33-2
+	UOverlayHA10WidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
+
+	//33-3
+	void InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS);
+
+//protected:
+	//virtual void BeginPlay() override;
 
 private:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UHA10UserWidget> OverlayWidgetClass;
+
+	//33-2
+	UPROPERTY()
+	TObjectPtr<UOverlayHA10WidgetController> OverlayWidgetController;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UOverlayHA10WidgetController> OverlayWidgetControllerClass;
 
 };
