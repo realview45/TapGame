@@ -46,6 +46,9 @@ class AURA_API UObjectHA10WidgetController : public UObject
 public:
 	UFUNCTION(BlueprintCallable)
 	void SetWidgetControllerParams(const FWidgetControllerParams& WCParams);
+	//34
+	virtual void BroadcastInitialValues();
+
 
 //29-2
 protected:

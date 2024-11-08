@@ -10,3 +10,7 @@ void UObjectHA10WidgetController::SetWidgetControllerParams(const FWidgetControl
 	AbilitySystemComponent = WCParams.AbilitySystemComponent;
 	AttributeSet = WCParams.AttributeSet;
 }
+//34
+void UObjectHA10WidgetController::BroadcastInitialValues()
+{
+}

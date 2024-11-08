@@ -32,6 +32,8 @@ void AHA10HUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySyst
 	UOverlayHA10WidgetController* OverlayHAWidgetController = GetOverlayWidgetController(WidgetControllerParams);
 
 	OverlayWidget->SetWidgetController(OverlayHAWidgetController);
+	//34
+	OverlayHAWidgetController->BroadcastInitialValues();
 
 	Widget->AddToViewport();
 }
