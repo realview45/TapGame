@@ -77,5 +77,28 @@ void AHA10EffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGam
 	//dereference pointer
 	TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());
 }
+//43
+void AHA10EffectActor::OnOverlap(AActor* TargetActor)
+{
+	if (InstantEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
+	{
+		ApplyEffectToTarget(TargetActor, InstantGameplayEffectclass);
+	}
+	if (DurationEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
+	{
+		ApplyEffectToTarget(TargetActor, DurationGameplayEffectclass);
+	}
+}
+void AHA10EffectActor::OutOverlap(AActor* TargetActor)
+{
+	if (InstantEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOutOverlap)
+	{
+		ApplyEffectToTarget(TargetActor, InstantGameplayEffectclass);
+	}
+	if (DurationEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOutOverlap)
+	{
+		ApplyEffectToTarget(TargetActor, DurationGameplayEffectclass);
+	}
+}
 
 
