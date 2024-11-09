@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+//45
+#include "GameplayEffectTypes.h"
+
 #include "HA10EffectActor.generated.h"
 
 //38
@@ -87,6 +90,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
 	EEffectRemovalPolicy InfiniteEffectRemovalPolicy = EEffectRemovalPolicy::RemoveOutOverlap;
 
+	//45
+	TMap<FActiveGameplayEffectHandle, UAbilitySystemComponent*> ActiveEffectHandles;
 
 private:
 	//overlapvolume sphere
