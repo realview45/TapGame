@@ -93,6 +93,10 @@ protected:
 	//45
 	TMap<FActiveGameplayEffectHandle, UAbilitySystemComponent*> ActiveEffectHandles;
 
+	//48
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effects")
+	float ActorLevel = 1.f;
+
 private:
 	//overlapvolume sphere
 	// //38
