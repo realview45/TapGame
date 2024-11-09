@@ -5,6 +5,8 @@
 
 //25-2
 #include "Net/UnrealNetwork.h"
+//47
+#include "GameplayEffectExtension.h"
 
 UHA10AttributeSet::UHA10AttributeSet()
 {
@@ -31,7 +33,6 @@ void UHA10AttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, 
 	if (Attribute == GetHealthAttribute())
 	{
 		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxHealth());
-		UE_LOG(LogTemp, Warning, TEXT("Health: %f"), NewValue);
 	}
 	if (Attribute == GetMaxHealthAttribute())
 	{
@@ -45,6 +46,17 @@ void UHA10AttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, 
 	if (Attribute == GetMaxManaAttribute())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("MaxMana: %f"), NewValue);
+	}
+}
+//47
+void UHA10AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
+{
+	Super::PostGameplayEffectExecute(Data);
+	//WhatAttributesHasbeenChanged
+	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Health from GetHealth(): %f"), GetHealth());
+		UE_LOG(LogTemp, Warning, TEXT("Magnitude: %f"), Data.EvaluatedData.Magnitude);
 	}
 }
 
