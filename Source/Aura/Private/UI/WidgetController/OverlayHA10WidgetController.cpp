@@ -41,12 +41,22 @@ void UOverlayHA10WidgetController::BindCallbacksToDependencies()
 		{
 			for (const FGameplayTag& Tag : AssetTags)
 			{
-				//Tag.GetTageName() returns FName, Tag.ToString() returns FString put * to convert a wide character array(ArrayofTchar)
-				const FString Msg = FString::Printf(TEXT("GE Tag: %s"), *Tag.ToString());
-				GEngine->AddOnScreenDebugMessage(-1, 8.f, FColor::Blue, Msg);
+				//For example, say that tag = message.HealthPotion
+				//"Message.HealthPotion".MatchesTag("Message") will return True, "Message".MatchesTag("Message.HealthPotion")will return False
+				//59-2 if "Message" is not exist, we will get an error
+				FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message"));
+				if (Tag.MatchesTag(MessageTag))//if tag is a message tag,
+				{
+					//58 specify the type(T) beacause this is the template function
+					const FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
+					//59-2
+					MessageWidgetRowDelegate.Broadcast(*Row);
+				}
+				
+				////Tag.GetTageName() returns FName, Tag.ToString() returns FString put * to convert a wide character array(ArrayofTchar)
+				//const FString Msg = FString::Printf(TEXT("GE Tag: %s"), *Tag.ToString());
+				//GEngine->AddOnScreenDebugMessage(-1, 8.f, FColor::Blue, Msg);
 
-				//58 specify the type(T) beacause this is the template function
-				FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
 			}
 		}
 	);
