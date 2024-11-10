@@ -4,6 +4,9 @@
 #include "UI/WidgetController/OverlayHA10WidgetController.h"
 //34
 #include "AbilitySystem/HA10AttributeSet.h"
+//56
+#include "AbilitySystem/HA10AbilitySystemComponent.h"
+
 void UOverlayHA10WidgetController::BroadcastInitialValues()
 {
 	//OnHealthChanged.Broadcast(100.f);
@@ -32,6 +35,18 @@ void UOverlayHA10WidgetController::BindCallbacksToDependencies()
 		HA10AttributeSet->GetManaAttribute()).AddUObject(this, &UOverlayHA10WidgetController::ManaChanged);
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
 		HA10AttributeSet->GetMaxManaAttribute()).AddUObject(this, &UOverlayHA10WidgetController::MaxManaChanged);
+	//56
+	Cast<UHA10AbilitySystemComponent>(AbilitySystemComponent)->EffectAssetTags.AddLambda(
+		[](const FGameplayTagContainer& AssetTags) 
+		{
+			for (const FGameplayTag& Tag : AssetTags)
+			{
+				//Tag.GetTageName() returns FName, Tag.ToString() returns FString put * to convert a wide character array(ArrayofTchar)
+				const FString Msg = FString::Printf(TEXT("GE Tag: %s"), *Tag.ToString());
+				GEngine->AddOnScreenDebugMessage(-1, 8.f, FColor::Blue, Msg);
+			}
+		}
+	);
 }
 //35-2
 void UOverlayHA10WidgetController::HealthChanged(const FOnAttributeChangeData& Data) const

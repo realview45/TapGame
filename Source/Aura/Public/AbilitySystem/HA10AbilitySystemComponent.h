@@ -6,6 +6,9 @@
 #include "AbilitySystemComponent.h"
 #include "HA10AbilitySystemComponent.generated.h"
 
+//56 Im gonna call this GameplayTagContainer
+DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTags, const FGameplayTagContainer& /*AssetTags*/);
+
 /**
  * 
  */
@@ -17,6 +20,9 @@ class AURA_API UHA10AbilitySystemComponent : public UAbilitySystemComponent
 	//54
 public:
 	void AbilityActorInfoSet();
+	//56
+	FEffectAssetTags EffectAssetTags;
+//54
 protected:
 	void EffectApplied(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);
 
