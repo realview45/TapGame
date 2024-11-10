@@ -13,6 +13,9 @@
 #include "Player/HA10PlayerController.h"
 #include "UI/HUD/HA10HUD.h"
 
+//54
+#include "AbilitySystem/HA10AbilitySystemComponent.h"
+
 AHA10_Character::AHA10_Character()
 {
 	GetCharacterMovement()->bOrientRotationToMovement = true;
@@ -43,6 +46,10 @@ void AHA10_Character::InitAbilityActorInfo()
 	AHA10PlayerState* HA10PlayerState = GetPlayerState<AHA10PlayerState>();
 	check(HA10PlayerState);
 	HA10PlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(HA10PlayerState, this);
+
+	//54
+	Cast<UHA10AbilitySystemComponent>(HA10PlayerState->GetAbilitySystemComponent())->AbilityActorInfoSet();
+
 	AbilitySystemComponent = HA10PlayerState->GetAbilitySystemComponent();
 	AttributeSet = HA10PlayerState->GetAttributeSet();
 

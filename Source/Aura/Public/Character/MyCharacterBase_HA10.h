@@ -49,7 +49,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon2;
 
-
+	//54
+	virtual void InitAbilityActorInfo();
 
 
 };

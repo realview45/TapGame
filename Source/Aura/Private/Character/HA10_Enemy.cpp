@@ -49,5 +49,13 @@ void AHA10_Enemy::BeginPlay()
 {
 	Super::BeginPlay();
 	//check(AbilitySystemComponent);
+	// 54 kc
+	//AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	InitAbilityActorInfo();
+}
+//54 
+void AHA10_Enemy::InitAbilityActorInfo()
+{
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	Cast<UHA10AbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 }

@@ -46,4 +46,8 @@ void AMyCharacterBase_HA10::SetupPlayerInputComponent(UInputComponent* PlayerInp
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
+//54
+void AMyCharacterBase_HA10::InitAbilityActorInfo()
+{
+}
 

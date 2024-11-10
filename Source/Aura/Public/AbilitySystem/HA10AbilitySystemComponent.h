@@ -14,4 +14,11 @@ class AURA_API UHA10AbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
 	
+	//54
+public:
+	void AbilityActorInfoSet();
+protected:
+	void EffectApplied(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);
+
+
 };
