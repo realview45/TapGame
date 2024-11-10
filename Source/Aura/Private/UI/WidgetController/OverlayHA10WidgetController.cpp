@@ -37,13 +37,16 @@ void UOverlayHA10WidgetController::BindCallbacksToDependencies()
 		HA10AttributeSet->GetMaxManaAttribute()).AddUObject(this, &UOverlayHA10WidgetController::MaxManaChanged);
 	//56
 	Cast<UHA10AbilitySystemComponent>(AbilitySystemComponent)->EffectAssetTags.AddLambda(
-		[](const FGameplayTagContainer& AssetTags) 
+		[this](const FGameplayTagContainer& AssetTags) 
 		{
 			for (const FGameplayTag& Tag : AssetTags)
 			{
 				//Tag.GetTageName() returns FName, Tag.ToString() returns FString put * to convert a wide character array(ArrayofTchar)
 				const FString Msg = FString::Printf(TEXT("GE Tag: %s"), *Tag.ToString());
 				GEngine->AddOnScreenDebugMessage(-1, 8.f, FColor::Blue, Msg);
+
+				//58 specify the type(T) beacause this is the template function
+				FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
 			}
 		}
 	);

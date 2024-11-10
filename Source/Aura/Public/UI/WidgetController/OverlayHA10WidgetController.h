@@ -24,6 +24,7 @@ USTRUCT(BlueprintType)
 struct FUIWidgetRow : public FTableRowBase
 {
 	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FGameplayTag MessageAssetTag;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
@@ -67,6 +68,10 @@ public:
 
 	//35-2
 protected:
+	//57
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Widget Data")
+	TObjectPtr<UDataTable>MessageWidgetDataTable;
+
 	//FOnAttributeChangeData delegate already exists in AbilitySystemComponent.h
 	void HealthChanged(const FOnAttributeChangeData& Data) const;
 	void MaxHealthChanged(const FOnAttributeChangeData& Data) const;
@@ -75,4 +80,24 @@ protected:
 	void ManaChanged(const FOnAttributeChangeData& Data) const;
 	void MaxManaChanged(const FOnAttributeChangeData& Data) const;
 
+	//58
+	template<typename T>
+	T* GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag);
+
 };
+
+//58
+template <typename T>
+T* UOverlayHA10WidgetController::GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag)
+{
+	return DataTable->FindRow<T>(Tag.GetTagName(), TEXT(""));
+	//sameas
+	//T* Row = DataTable->FindRow<T>(Tag.GetTagName(), TEXT(""));
+	//return Row;
+	//sameas
+	//if (Row)
+	//{
+	//	return Row;
+	//}
+	//return nullptr;
+}
