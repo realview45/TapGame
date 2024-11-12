@@ -36,19 +36,22 @@ void UHA10AttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, 
 	if (Attribute == GetHealthAttribute())
 	{
 		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxHealth());
+		GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Magenta, FString::Printf(TEXT("Health: %f"), NewValue));
+		//UE_LOG(LogTemp, Warning, TEXT("Health: %f"), NewValue);
 	}
 	if (Attribute == GetMaxHealthAttribute())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("MaxHealth: %f"), NewValue);
+		//UE_LOG(LogTemp, Warning, TEXT("MaxHealth: %f"), NewValue);
 	}
 	if (Attribute == GetManaAttribute())
 	{
 		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxMana());
-		UE_LOG(LogTemp, Warning, TEXT("Mana: %f"), NewValue);
+		GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Green, FString::Printf(TEXT("Mana: %f"), NewValue));
+		//UE_LOG(LogTemp, Warning, TEXT("Mana: %f"), NewValue);
 	}
 	if (Attribute == GetMaxManaAttribute())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("MaxMana: %f"), NewValue);
+		//UE_LOG(LogTemp, Warning, TEXT("MaxMana: %f"), NewValue);
 	}
 }
 //47
@@ -58,6 +61,18 @@ void UHA10AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 	//47-3
 	FEffectProperties Props;
 	SetEffectProperties(Data, Props);
+	//64 clamp one more time
+	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+	{
+		SetHealth(FMath::ClampAngle(GetHealth(), 0.f, GetMaxHealth()));
+		GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Red, FString::Printf(TEXT("Health: %f"), GetHealth()));
+	}
+	if (Data.EvaluatedData.Attribute == GetManaAttribute())
+	{
+		SetMana(FMath::ClampAngle(GetMana(), 0.f, GetMaxMana()));
+		GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Blue, FString::Printf(TEXT("Mana: %f"), GetMana()));
+	}
+
 	//WhatAttributesHasbeenChanged
 	//if (Data.EvaluatedData.Attribute == GetHealthAttribute())
 	//{
