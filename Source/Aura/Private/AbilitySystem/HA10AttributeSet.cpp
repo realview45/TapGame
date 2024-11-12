@@ -23,6 +23,12 @@ UHA10AttributeSet::UHA10AttributeSet()
 void UHA10AttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	//65
+	DOREPLIFETIME_CONDITION_NOTIFY(UHA10AttributeSet, Strength, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UHA10AttributeSet, Intelligence, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UHA10AttributeSet, Resilience, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UHA10AttributeSet, Vigor, COND_None, REPNOTIFY_Always);
+
 	DOREPLIFETIME_CONDITION_NOTIFY(UHA10AttributeSet, Health, COND_None, REPNOTIFY_Always);
 	//25-3
 	DOREPLIFETIME_CONDITION_NOTIFY(UHA10AttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
@@ -128,6 +134,23 @@ void UHA10AttributeSet::OnRep_Mana(const FGameplayAttributeData& OldMana) const
 void UHA10AttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UHA10AttributeSet, MaxMana, OldMaxMana);
+}
+//65
+void UHA10AttributeSet::OnRep_Strength(const FGameplayAttributeData& OldStrength) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UHA10AttributeSet, Strength, OldStrength);
+}
+void UHA10AttributeSet::OnRep_Intelligence(const FGameplayAttributeData& OldIntelligence) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UHA10AttributeSet, Intelligence, OldIntelligence);
+}
+void UHA10AttributeSet::OnRep_Resilience(const FGameplayAttributeData& OldResilience) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UHA10AttributeSet, Resilience, OldResilience);
+}
+void UHA10AttributeSet::OnRep_Vigor(const FGameplayAttributeData& OldVigor) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UHA10AttributeSet, Vigor, OldVigor);
 }
 //47-3
 void UHA10AttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties Props) const
