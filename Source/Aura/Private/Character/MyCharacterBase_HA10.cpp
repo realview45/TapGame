@@ -2,6 +2,8 @@
 
 
 #include "Character/MyCharacterBase_HA10.h"
+//66
+#include "AbilitySystemComponent.h"
 
 // Sets default values
 AMyCharacterBase_HA10::AMyCharacterBase_HA10()
@@ -49,5 +51,16 @@ void AMyCharacterBase_HA10::SetupPlayerInputComponent(UInputComponent* PlayerInp
 //54
 void AMyCharacterBase_HA10::InitAbilityActorInfo()
 {
+}
+//66
+void AMyCharacterBase_HA10::InitializePrimaryAttributes() const
+{
+	check(IsValid(GetAbilitySystemComponent()));
+	check(DefaultPrimaryAttributes);
+	//get contexthandle
+	const FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
+	//get effectspec
+	const FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(DefaultPrimaryAttributes, 1.f, ContextHandle);
+	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), GetAbilitySystemComponent());
 }
 

@@ -61,6 +61,8 @@ void AHA10_Character::InitAbilityActorInfo()
 			HA10HUD->InitOverlay(HA10PlayerController, HA10PlayerState, AbilitySystemComponent, AttributeSet);
 		}
 	}
+	//66
+	InitializePrimaryAttributes();
 }
 
 

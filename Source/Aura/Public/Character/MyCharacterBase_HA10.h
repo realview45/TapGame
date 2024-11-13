@@ -7,7 +7,8 @@
 //21-3
 #include "AbilitySystemInterface.h"
 #include "MyCharacterBase_HA10.generated.h"
-
+//66
+class UGameplayEffect;
 //21-3
 class UAbilitySystemComponent;
 class UAttributeSet;
@@ -51,6 +52,10 @@ public:
 
 	//54
 	virtual void InitAbilityActorInfo();
+	//66
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Attributes")
+	TSubclassOf<UGameplayEffect> DefaultPrimaryAttributes;
+	void InitializePrimaryAttributes() const;
 
 
 };
