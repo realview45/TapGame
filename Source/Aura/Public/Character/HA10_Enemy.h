@@ -24,12 +24,14 @@ class AURA_API AHA10_Enemy : public AMyCharacterBase_HA10, public IEnemyInterfac
 public:
 	//15
 	AHA10_Enemy();
-
+	/*Enemy Interface*/
 	virtual void HighlightActor() override;
 	virtual void UnHighlightActor() override;
-
-	
-
+	/*endEnemyInterface*/
+	//73-2
+	/*CombatInterface*/
+	virtual int32 GetPlayerLevel() override;
+	/*endCombatInterface*/
 	//14-2
 	UPROPERTY(BlueprintReadOnly)
 	bool bHighlighted = false;
@@ -39,4 +41,10 @@ protected:
 	virtual void BeginPlay() override;
 	//54
 	virtual void InitAbilityActorInfo() override;
+
+	//73-2
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Character Class Defaults")
+	int32 Level = 1;
+
+
 };

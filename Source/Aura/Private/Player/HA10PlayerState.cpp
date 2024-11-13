@@ -5,6 +5,9 @@
 //21-2
 #include "AbilitySystem/HA10AbilitySystemComponent.h"
 #include "AbilitySystem/HA10AttributeSet.h"
+//73
+#include "Net/UnrealNetwork.h"
+
 AHA10PlayerState::AHA10PlayerState()
 {
 	AbilitySystemComponent = CreateDefaultSubobject<UHA10AbilitySystemComponent>("AbilitySystemComponent");
@@ -16,8 +19,18 @@ AHA10PlayerState::AHA10PlayerState()
 
 	NetUpdateFrequency = 100.f;
 }
+//73
+void AHA10PlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AHA10PlayerState, Level);
+}
 //21-4
 UAbilitySystemComponent* AHA10PlayerState::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
+}
+//73
+void AHA10PlayerState::OnRep_Level(int32 OldLevel)
+{
 }

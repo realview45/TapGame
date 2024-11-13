@@ -6,6 +6,9 @@
 #include "GameFramework/Character.h"
 //21-3
 #include "AbilitySystemInterface.h"
+//73
+#include "Interaction/CombatInterface.h"
+
 #include "MyCharacterBase_HA10.generated.h"
 //66
 class UGameplayEffect;
@@ -13,9 +16,9 @@ class UGameplayEffect;
 class UAbilitySystemComponent;
 class UAttributeSet;
 
-//21-3 inherit IAbilitySystemInterface 
+//21-3 inherit IAbilitySystemInterface 73-2 ICombatInterface
 UCLASS()
-class AURA_API AMyCharacterBase_HA10 : public ACharacter, public IAbilitySystemInterface
+class AURA_API AMyCharacterBase_HA10 : public ACharacter, public IAbilitySystemInterface , public ICombatInterface
 {
 	GENERATED_BODY()
 
@@ -25,7 +28,10 @@ public:
 	//21-3
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
-
+	// Called every frame 71c
+	//virtual void Tick(float DeltaTime) override;
+	// Called to bind functionality to input
+	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -36,26 +42,24 @@ protected:
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;
 
-public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	//07-1 ���Ͽ� ������������ Tracking�̰����ϰ� lazy loading�� ������Pointer(UE)�� ���� 
-	//Weapon�̶�� ���̷�Ż�޽�������Ʈ����
+	//71publictoprotected
+	//07-1
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon2;
-
 	//54
 	virtual void InitAbilityActorInfo();
 	//66
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Attributes")
 	TSubclassOf<UGameplayEffect> DefaultPrimaryAttributes;
-	void InitializePrimaryAttributes() const;
+	//void InitializePrimaryAttributes() const; 71-2c
 
-
+	//71
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Attributes")
+	TSubclassOf<UGameplayEffect> DefaultSecondaryAttributes;
+	//void InitializeSecondaryAttributes() const; 71-2c
+	//71-2 replace InitialPrimaryAttributes() and InitializeSecondaryAttributes()
+	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect>GameplayEffectClass, float Level) const;
+	void InitializeDefaultAttributes() const;
 };

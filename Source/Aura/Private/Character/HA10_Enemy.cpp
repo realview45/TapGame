@@ -43,6 +43,11 @@ void AHA10_Enemy::UnHighlightActor()
 	Weapon2->SetRenderCustomDepth(false);
 
 }
+//73-2
+int32 AHA10_Enemy::GetPlayerLevel()
+{
+	return Level;
+}
 
 //23
 void AHA10_Enemy::BeginPlay()

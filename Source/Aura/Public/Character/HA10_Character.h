@@ -20,6 +20,11 @@ public:
 	//24
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void OnRep_PlayerState() override;
+	//73-2
+	/*CombatInterface*/
+	virtual int32 GetPlayerLevel() override;
+	/*endCombatInterface*/
+
 
 //24 54override
 private:

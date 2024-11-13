@@ -34,33 +34,56 @@ void AMyCharacterBase_HA10::BeginPlay()
 	Super::BeginPlay();
 
 }
-
-// Called every frame
-void AMyCharacterBase_HA10::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
-// Called to bind functionality to input
-void AMyCharacterBase_HA10::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
+//71c
+//// Called every frame
+//void AMyCharacterBase_HA10::Tick(float DeltaTime)
+//{
+//	Super::Tick(DeltaTime);
+//
+//}
+//
+//// Called to bind functionality to input
+//void AMyCharacterBase_HA10::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+//{
+//	Super::SetupPlayerInputComponent(PlayerInputComponent);
+//
+//}
 //54
 void AMyCharacterBase_HA10::InitAbilityActorInfo()
 {
 }
-//66
-void AMyCharacterBase_HA10::InitializePrimaryAttributes() const
+//66 71-2c
+//void AMyCharacterBase_HA10::InitializePrimaryAttributes() const
+//{
+//	check(IsValid(GetAbilitySystemComponent()));
+//	check(DefaultPrimaryAttributes);
+//	//get contexthandle
+//	const FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
+//	//get effectspec
+//	const FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(DefaultPrimaryAttributes, 1.f, ContextHandle);
+//	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), GetAbilitySystemComponent());
+//}
+//71 71-2c
+//void AMyCharacterBase_HA10::InitializeSecondaryAttributes() const
+//{
+//	check(IsValid(GetAbilitySystemComponent()));
+//	check(DefaultSecondaryAttributes);
+//	const FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
+//	const FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(DefaultSecondaryAttributes, 1.f, ContextHandle);
+//	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), GetAbilitySystemComponent());
+//}
+//71-2
+void AMyCharacterBase_HA10::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const
 {
 	check(IsValid(GetAbilitySystemComponent()));
-	check(DefaultPrimaryAttributes);
-	//get contexthandle
+	check(GameplayEffectClass);
 	const FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
-	//get effectspec
-	const FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(DefaultPrimaryAttributes, 1.f, ContextHandle);
+	const FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(GameplayEffectClass, Level, ContextHandle);
 	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), GetAbilitySystemComponent());
+}
+void AMyCharacterBase_HA10::InitializeDefaultAttributes() const
+{
+	ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
+	ApplyEffectToSelf(DefaultSecondaryAttributes, 1.f);
 }
 

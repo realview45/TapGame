@@ -40,6 +40,13 @@ void AHA10_Character::OnRep_PlayerState()
 	//Init ability actor info for the client
 	InitAbilityActorInfo();
 }
+//73-2
+int32 AHA10_Character::GetPlayerLevel()
+{
+	AHA10PlayerState* HA10PlayerState = GetPlayerState<AHA10PlayerState>();
+	check(HA10PlayerState);
+	return HA10PlayerState->GetPlayerLevel();
+}
 
 void AHA10_Character::InitAbilityActorInfo()
 {
@@ -61,8 +68,10 @@ void AHA10_Character::InitAbilityActorInfo()
 			HA10HUD->InitOverlay(HA10PlayerController, HA10PlayerState, AbilitySystemComponent, AttributeSet);
 		}
 	}
-	//66
-	InitializePrimaryAttributes();
+	////66 71-2c
+	//InitializePrimaryAttributes();
+	//71-2
+	InitializeDefaultAttributes();
 }
 
 
