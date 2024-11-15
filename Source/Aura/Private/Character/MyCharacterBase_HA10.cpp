@@ -89,5 +89,7 @@ void AMyCharacterBase_HA10::InitializeDefaultAttributes() const
 {
 	ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
 	ApplyEffectToSelf(DefaultSecondaryAttributes, 1.f);
+	//75
+	ApplyEffectToSelf(InitializeAttributes, 1.f);
 }
 
