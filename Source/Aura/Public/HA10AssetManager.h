@@ -13,5 +13,12 @@ UCLASS()
 class AURA_API UHA10AssetManager : public UAssetManager
 {
 	GENERATED_BODY()
+public:
+
+	static UHA10AssetManager& Get();
+
+protected:
+
+	virtual void StartInitialLoading() override;
 	
 };
