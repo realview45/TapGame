@@ -4,12 +4,14 @@
 
 #include "CoreMinimal.h"
 
-/**
- * 
- */
-class AURA_API HA10GameplayTags
+#include "GameplayTagContainer.h"
+struct FHA10GameplayTags
 {
 public:
-	HA10GameplayTags();
-	~HA10GameplayTags();
+	static const FHA10GameplayTags& Get() { return GameplayTags; }
+	static void InitializeNativeGameplayTags();
+protected:
+
+private:
+	static FHA10GameplayTags GameplayTags;
 };

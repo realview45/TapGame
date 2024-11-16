@@ -2,11 +2,11 @@
 
 
 #include "HA10GameplayTags.h"
+#include "GameplayTagsManager.h"
 
-HA10GameplayTags::HA10GameplayTags()
-{
-}
+FHA10GameplayTags FHA10GameplayTags::GameplayTags;
 
-HA10GameplayTags::~HA10GameplayTags()
+void FHA10GameplayTags::InitializeNativeGameplayTags()
 {
+	UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Secondary.Armor"), FString("Reduces damage taken, improves Block Chance"));
 }
