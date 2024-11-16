@@ -7,9 +7,9 @@
 /**
  * 
  */
-class AURA_API HA10GameplayTags
+class AURA_API GPTags
 {
 public:
-	HA10GameplayTags();
-	~HA10GameplayTags();
+	GPTags();
+	~GPTags();
 };
