@@ -25,6 +25,9 @@ public:
 	FGameplayTag Attributes_Secondary_CriticalHitResistance;
 	FGameplayTag Attributes_Secondary_HealthRegeneration;
 	FGameplayTag Attributes_Secondary_ManaRegeneration;
+	//96my
+	FGameplayTag Attributes_Vital_MaxHealth;
+	FGameplayTag Attributes_Vital_MaxMana;
 
 protected:
 

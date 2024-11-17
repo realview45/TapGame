@@ -36,5 +36,10 @@ void FHA10GameplayTags::InitializeNativeGameplayTags()
 		UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Secondary.HealthRegeneration"), FString("Amount of Health regenerated every 1 second"));
 	GameplayTags.Attributes_Secondary_ManaRegeneration = 
 		UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Secondary.ManaRegeneration"), FString("Amount of Health regenerated every 1 second"));
+	//96
+	GameplayTags.Attributes_Vital_MaxHealth =
+		UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Vital.MaxHealth"), FString("MaxHealthMagnitude"));
+	GameplayTags.Attributes_Vital_MaxMana =
+		UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Vital.MaxMana"), FString("MaxManaMagnitude"));
 
 }
