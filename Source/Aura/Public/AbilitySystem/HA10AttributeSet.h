@@ -17,6 +17,11 @@
 
 //95 return GameplayAttributeStruct 95-2c
 //DECLARE_DELEGATE_RetVal(FGameplayAttribute, FAttributeSignature);
+//95-3 typedef too long type and template
+//typedef TBaseStaticDelegateInstance < FGameplayAttribute(), FDefaultDelegateUserPolicy>::FFuncPtr AttributeFuncPtr;
+//typedef is specific to the FGameplayplayAttribute() signature, but TStaticFuncPtr is generic to any signature chosen
+template<class T>
+using TAttributeFuncPtr = typename TBaseStaticDelegateInstance <T, FDefaultDelegateUserPolicy>::FFuncPtr;
 
 //47-3
 USTRUCT()
@@ -67,9 +72,11 @@ public:
 
 	//95 95-2c
 	/*TMap<FGameplayTag, FAttributeSignature> TagsToAttributes;*/
-	//95-2
-	//TMap<FGameplayTag, TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultDelegateUserPolicy>::FFuncPtr> TagsToAttributes; same as
-	TMap<FGameplayTag, FGameplayAttribute(*)()> TagsToAttributes;
+	//95-2 95-3c typedef and template
+	//TMap<FGameplayTag, TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultDelegateUserPolicy>::FFuncPtr> TagsToAttributes;
+	//TMap<FGameplayTag, AttributeFuncPtr> TagsToAttributes;
+	//ex TStaticFuncPtr<float(int32, float, int32)> RandomFunctionPointer; static float RandomFunction(int32 I, float F, int32 I2) { return 0.f;}
+	TMap<FGameplayTag, TAttributeFuncPtr<FGameplayAttribute()>> TagsToAttributes;
 	//up(specific signature) down(funcpointer) 95-2c
 	//TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultDelegateUserPolicy>
 	//	::FFuncPtr FunctionPointer;

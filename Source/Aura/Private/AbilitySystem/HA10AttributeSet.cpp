@@ -26,6 +26,7 @@ UHA10AttributeSet::UHA10AttributeSet()
 	//95-2
 	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Strength, GetStrengthAttribute);
 	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Intelligence, GetIntelligenceAttribute);
+
 	//95-2c
 	//FAttributeSignature StrengthDelegate;
 	//StrengthDelegate.BindStatic(GetStrengthAttribute);//bind static func
@@ -36,6 +37,8 @@ UHA10AttributeSet::UHA10AttributeSet()
 	//95-2c how to use funcpointer
 	//FunctionPointer = GetIntelligenceAttribute;
 	//FGameplayAttribute Attribute = FunctionPointer();
+	//95-3c randomfunction ex
+	//RandomFunctionPointer = RandomFunction; float F = RandomFunctionPointer(0, 0.f, 0);
 }
 //25-2
 void UHA10AttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
