@@ -14,10 +14,20 @@ void UAttributeMenuWidgetController::BindCallbacksToDependencies()
 
 void UAttributeMenuWidgetController::BroadcastInitialValues()
 {
-	//93 
+	//93 95StrengthInfo
 	UHA10AttributeSet* AS = CastChecked<UHA10AttributeSet>(AttributeSet);
 	check(AttributeInfo);
-	FHA10AttributeInfo Info = AttributeInfo->FindAttributeInfoForTag(FHA10GameplayTags::Get().Attributes_Primary_Strength);
-	Info.AttributeValue = AS->GetStrength();
-	AttributeInfoDelegate.Broadcast(Info);
+	//95c
+	//FHA10AttributeInfo StrengthInfo = AttributeInfo->FindAttributeInfoForTag(FHA10GameplayTags::Get().Attributes_Primary_Strength);
+	//StrengthInfo.AttributeValue = AS->GetStrength();
+	//AttributeInfoDelegate.Broadcast(StrengthInfo);
+	//FHA10AttributeInfo IntelligenceInfo = AttributeInfo->FindAttributeInfoForTag(FHA10GameplayTags::Get().Attributes_Primary_Intelligence);
+	//IntelligenceInfo.AttributeValue = AS->GetIntelligence();
+	//AttributeInfoDelegate.Broadcast(IntelligenceInfo);
+	for (auto& Pair : AS->TagsToAttributes)
+	{
+		FHA10AttributeInfo Info = AttributeInfo->FindAttributeInfoForTag(Pair.Key);
+		Info.AttributeValue = Pair.Value.Execute().GetNumericValue(AS);
+		AttributeInfoDelegate.Broadcast(Info);
+	}
 }

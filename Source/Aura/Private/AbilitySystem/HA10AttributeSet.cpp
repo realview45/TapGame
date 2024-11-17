@@ -10,6 +10,8 @@
 //47-2
 #include "GameFramework/Character.h"
 #include "AbilitySystemBlueprintLibrary.h"
+//95
+#include "HA10GameplayTags.h"
 
 UHA10AttributeSet::UHA10AttributeSet()
 {
@@ -19,6 +21,14 @@ UHA10AttributeSet::UHA10AttributeSet()
 	//InitMaxHealth(100.f);
 	//InitMana(100.f);
 	//InitMaxMana(200.f);
+	//95
+	const FHA10GameplayTags& GameplayTags = FHA10GameplayTags::Get();
+	FAttributeSignature StrengthDelegate;
+	StrengthDelegate.BindStatic(GetStrengthAttribute);//bind static func
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Strength, StrengthDelegate);
+	FAttributeSignature IntelligenceDelegate;
+	IntelligenceDelegate.BindStatic(GetIntelligenceAttribute);//bind static func
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Intelligence, IntelligenceDelegate);
 }
 //25-2
 void UHA10AttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const

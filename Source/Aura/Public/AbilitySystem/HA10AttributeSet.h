@@ -14,6 +14,10 @@
 	GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
 	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
+
+//95 return GameplayAttributeStruct
+DECLARE_DELEGATE_RetVal(FGameplayAttribute, FAttributeSignature);
+
 //47-3
 USTRUCT()
 struct FEffectProperties
@@ -60,6 +64,9 @@ public:
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 	//47
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
+
+	//95
+	TMap<FGameplayTag, FAttributeSignature> TagsToAttributes;
 
 	//65
 	/*
