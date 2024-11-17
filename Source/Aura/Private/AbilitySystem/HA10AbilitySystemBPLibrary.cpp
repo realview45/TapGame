@@ -27,4 +27,21 @@ UOverlayHA10WidgetController* UHA10AbilitySystemBPLibrary::GetOverlayWidgetContr
 	}
 	return nullptr;
 }
+//92-2
+UAttributeMenuWidgetController* UHA10AbilitySystemBPLibrary::GetAttributeMenuWidgetController(const UObject* WorldContextObject)
+{
+	if (APlayerController* PC = UGameplayStatics::GetPlayerController(WorldContextObject, 0))
+	{
+		if (AHA10HUD* HA10HUD = Cast<AHA10HUD>(PC->GetHUD()))
+		{
+			AHA10PlayerState* PS = PC->GetPlayerState<AHA10PlayerState>();
+			UAbilitySystemComponent* ASC = PS->GetAbilitySystemComponent();
+			UAttributeSet* AS = PS->GetAttributeSet();
+			const FWidgetControllerParams WidgetControllerParams(PC, PS, ASC, AS);
+
+			return HA10HUD->GetAttributeMenuWidgetController(WidgetControllerParams);
+		}
+	}
+	return nullptr;
+}
 

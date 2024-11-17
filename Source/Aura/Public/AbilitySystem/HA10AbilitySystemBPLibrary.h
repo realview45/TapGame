@@ -9,6 +9,8 @@
 
 
 class UOverlayHA10WidgetController;
+//92-2
+class UAttributeMenuWidgetController;
 /**
  * 
  */
@@ -19,10 +21,12 @@ class AURA_API UHA10AbilitySystemBPLibrary : public UBlueprintFunctionLibrary
 
 public:
 
-	UFUNCTION(BlueprintPure)
+	UFUNCTION(BlueprintPure, Category="HA10AbilitySystemLibraryWidgetController")
 	static UOverlayHA10WidgetController* GetOverlayWidgetController(const UObject* WorldContextObject);
 
-
+	//92-2
+	UFUNCTION(BlueprintPure, Category = "HA10AbilitySystemLibraryWidgetController")
+	static UAttributeMenuWidgetController* GetAttributeMenuWidgetController(const UObject* WorldContextObject);
 };
 
 

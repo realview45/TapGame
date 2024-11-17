@@ -6,6 +6,8 @@
 //33-2
 #include "UI/Widgets/HA10UserWidget.h"
 #include "UI/WidgetController/OverlayHA10WidgetController.h"
+//92
+#include "UI/WidgetController/AttributeMenuWidgetController.h"
 UOverlayHA10WidgetController* AHA10HUD::GetOverlayWidgetController(const FWidgetControllerParams& WCParams)
 {
 	if (OverlayWidgetController == nullptr)
@@ -14,10 +16,19 @@ UOverlayHA10WidgetController* AHA10HUD::GetOverlayWidgetController(const FWidget
 		OverlayWidgetController->SetWidgetControllerParams(WCParams);
 		//35
 		OverlayWidgetController->BindCallbacksToDependencies();
-
-		return OverlayWidgetController;
 	}
 	return OverlayWidgetController;
+}
+//92
+UAttributeMenuWidgetController* AHA10HUD::GetAttributeMenuWidgetController(const FWidgetControllerParams& WCParams)
+{
+	if (AttributeMenuWidgetController == nullptr)
+	{
+		AttributeMenuWidgetController = NewObject<UAttributeMenuWidgetController>(this, AttributeMenuWidgetControllerClass);
+		AttributeMenuWidgetController->SetWidgetControllerParams(WCParams);
+		AttributeMenuWidgetController->BindCallbacksToDependencies();
+	}
+	return AttributeMenuWidgetController;
 }
 
 //33-3
