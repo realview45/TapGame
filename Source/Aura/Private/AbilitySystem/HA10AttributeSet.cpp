@@ -40,10 +40,6 @@ UHA10AttributeSet::UHA10AttributeSet()
 	TagsToAttributes.Add(GameplayTags.Attributes_Vital_MaxHealth, GetMaxHealthAttribute);
 	TagsToAttributes.Add(GameplayTags.Attributes_Vital_MaxMana, GetMaxManaAttribute);
 
-
-
-
-
 	//95-2c
 	//FAttributeSignature StrengthDelegate;
 	//StrengthDelegate.BindStatic(GetStrengthAttribute);//bind static func
