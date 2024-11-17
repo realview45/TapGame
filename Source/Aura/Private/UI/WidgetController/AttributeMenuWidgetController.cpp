@@ -27,7 +27,10 @@ void UAttributeMenuWidgetController::BroadcastInitialValues()
 	for (auto& Pair : AS->TagsToAttributes)
 	{
 		FHA10AttributeInfo Info = AttributeInfo->FindAttributeInfoForTag(Pair.Key);
-		Info.AttributeValue = Pair.Value.Execute().GetNumericValue(AS);
+		//95-2c Value = delegate to funcpointer 95-2
+		//Info.AttributeValue = Pair.Value.Execute().GetNumericValue(AS);
+		Info.AttributeValue = Pair.Value().GetNumericValue(AS);
+
 		AttributeInfoDelegate.Broadcast(Info);
 	}
 }

@@ -15,8 +15,8 @@
 	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
-//95 return GameplayAttributeStruct
-DECLARE_DELEGATE_RetVal(FGameplayAttribute, FAttributeSignature);
+//95 return GameplayAttributeStruct 95-2c
+//DECLARE_DELEGATE_RetVal(FGameplayAttribute, FAttributeSignature);
 
 //47-3
 USTRUCT()
@@ -65,8 +65,14 @@ public:
 	//47
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 
-	//95
-	TMap<FGameplayTag, FAttributeSignature> TagsToAttributes;
+	//95 95-2c
+	/*TMap<FGameplayTag, FAttributeSignature> TagsToAttributes;*/
+	//95-2
+	//TMap<FGameplayTag, TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultDelegateUserPolicy>::FFuncPtr> TagsToAttributes; same as
+	TMap<FGameplayTag, FGameplayAttribute(*)()> TagsToAttributes;
+	//up(specific signature) down(funcpointer) 95-2c
+	//TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultDelegateUserPolicy>
+	//	::FFuncPtr FunctionPointer;
 
 	//65
 	/*

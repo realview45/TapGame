@@ -23,12 +23,19 @@ UHA10AttributeSet::UHA10AttributeSet()
 	//InitMaxMana(200.f);
 	//95
 	const FHA10GameplayTags& GameplayTags = FHA10GameplayTags::Get();
-	FAttributeSignature StrengthDelegate;
-	StrengthDelegate.BindStatic(GetStrengthAttribute);//bind static func
-	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Strength, StrengthDelegate);
-	FAttributeSignature IntelligenceDelegate;
-	IntelligenceDelegate.BindStatic(GetIntelligenceAttribute);//bind static func
-	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Intelligence, IntelligenceDelegate);
+	//95-2
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Strength, GetStrengthAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Intelligence, GetIntelligenceAttribute);
+	//95-2c
+	//FAttributeSignature StrengthDelegate;
+	//StrengthDelegate.BindStatic(GetStrengthAttribute);//bind static func
+	//TagsToAttributes.Add(GameplayTags.Attributes_Primary_Strength, StrengthDelegate);
+	//FAttributeSignature IntelligenceDelegate;
+	//IntelligenceDelegate.BindStatic(GetIntelligenceAttribute);//bind static func
+	//TagsToAttributes.Add(GameplayTags.Attributes_Primary_Intelligence, IntelligenceDelegate);
+	//95-2c how to use funcpointer
+	//FunctionPointer = GetIntelligenceAttribute;
+	//FGameplayAttribute Attribute = FunctionPointer();
 }
 //25-2
 void UHA10AttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
