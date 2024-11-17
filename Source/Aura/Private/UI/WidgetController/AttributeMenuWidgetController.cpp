@@ -14,7 +14,7 @@ void UAttributeMenuWidgetController::BindCallbacksToDependencies()
 
 void UAttributeMenuWidgetController::BroadcastInitialValues()
 {
-	//93
+	//93 
 	UHA10AttributeSet* AS = CastChecked<UHA10AttributeSet>(AttributeSet);
 	check(AttributeInfo);
 	FHA10AttributeInfo Info = AttributeInfo->FindAttributeInfoForTag(FHA10GameplayTags::Get().Attributes_Primary_Strength);

@@ -33,7 +33,7 @@ public:
 	//93
 	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
 	FAttributeInfoSignature AttributeInfoDelegate;
-
+//93
 protected:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UMyAttributeInfo>AttributeInfo;
