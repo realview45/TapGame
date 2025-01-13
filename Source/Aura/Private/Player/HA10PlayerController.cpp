@@ -4,9 +4,10 @@
 #include "Player/HA10PlayerController.h"
 
 #include "EnhancedInputSubsystems.h"
-//11
-#include "EnhancedInputComponent.h"
-
+//11 102c
+//#include "EnhancedInputComponent.h"
+//102
+#include "Input/HA10InputComponent.h"
 //14
 #include "Interaction/EnemyInterface.h"
 
@@ -51,8 +52,14 @@ void AHA10PlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
-	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
-	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AHA10PlayerController::Move);
+	//102
+	UHA10InputComponent* HA10InputComponent = CastChecked<UHA10InputComponent>(InputComponent);
+	//102c
+	//UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
+	HA10InputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AHA10PlayerController::Move);
+	//102
+	HA10InputComponent->BindAbilityActions(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);
+
 
 }
 
@@ -113,4 +120,17 @@ void AHA10PlayerController::CursorTrace()
 			}
 		}
 	}
+}
+//102
+void AHA10PlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
+{
+	GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Red, *InputTag.ToString());
+}
+void AHA10PlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
+{
+	GEngine->AddOnScreenDebugMessage(2, 3.f, FColor::Blue, *InputTag.ToString());
+}
+void AHA10PlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
+{
+	GEngine->AddOnScreenDebugMessage(3, 3.f, FColor::Green, *InputTag.ToString());
 }

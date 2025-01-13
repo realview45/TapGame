@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+//102
+#include "GameplayTagContainer.h"
+
 #include "HA10PlayerController.generated.h"
 
 class UInputMappingContext;
@@ -12,6 +15,8 @@ class UInputAction;
 struct FInputActionValue;
 //14
 class IEnemyInterface;
+//102
+class UHA10InputConfig;
 
 /**
  * 
@@ -47,5 +52,13 @@ private:
 	void CursorTrace();
 	TScriptInterface<IEnemyInterface> LastActor;
 	TScriptInterface<IEnemyInterface> ThisActor;
+
+	//102
+	void AbilityInputTagPressed(FGameplayTag InputTag);
+	void AbilityInputTagReleased(FGameplayTag InputTag);
+	void AbilityInputTagHeld(FGameplayTag InputTag);
+
+	UPROPERTY(EditDefaultsOnly, Category="Input")
+	TObjectPtr<UHA10InputConfig> InputConfig;
 
 };
