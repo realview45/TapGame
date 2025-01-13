@@ -33,6 +33,9 @@ void AHA10_Character::PossessedBy(AController* NewController)
 	Super::PossessedBy(NewController);
 	//Init ability actor info for the server
 	InitAbilityActorInfo();
+	//98-3
+	AddCharacterAbilities();
+
 }
 void AHA10_Character::OnRep_PlayerState()
 {

@@ -25,7 +25,18 @@ void UHA10AbilitySystemComponent::AbilityActorInfoSet()
 	//);
 
 }
-void UHA10AbilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilitySystemComponent, 
+//98-2
+void UHA10AbilitySystemComponent::AddCharacAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities)
+{
+	for (TSubclassOf<UGameplayAbility>AbilityClass : StartupAbilities)
+	{
+		FGameplayAbilitySpec  AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
+		//GiveAbility(AbilitySpec);
+		GiveAbilityAndActivateOnce(AbilitySpec);
+	}
+}
+
+void UHA10AbilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilitySystemComponent,
 	const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle)
 {
 	GEngine->AddOnScreenDebugMessage(1, 8.f, FColor::Blue, FString("Effect Applied!"));

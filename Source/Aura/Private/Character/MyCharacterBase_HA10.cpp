@@ -4,6 +4,8 @@
 #include "Character/MyCharacterBase_HA10.h"
 //66
 #include "AbilitySystemComponent.h"
+//98
+#include "AbilitySystem/HA10AbilitySystemComponent.h"
 
 // Sets default values
 AMyCharacterBase_HA10::AMyCharacterBase_HA10()
@@ -91,5 +93,12 @@ void AMyCharacterBase_HA10::InitializeDefaultAttributes() const
 	ApplyEffectToSelf(DefaultSecondaryAttributes, 1.f);
 	//75
 	ApplyEffectToSelf(InitializeAttributes, 1.f);
+}
+//98
+void AMyCharacterBase_HA10::AddCharacterAbilities()
+{
+	UHA10AbilitySystemComponent* HA10ASC = CastChecked<UHA10AbilitySystemComponent>(AbilitySystemComponent);
+	if (!HasAuthority()) return;
+	HA10ASC->AddCharacAbilities(StartupAbilities);
 }
 

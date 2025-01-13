@@ -9,12 +9,15 @@
 //73
 #include "Interaction/CombatInterface.h"
 
+
 #include "MyCharacterBase_HA10.generated.h"
 //66
 class UGameplayEffect;
 //21-3
 class UAbilitySystemComponent;
 class UAttributeSet;
+//98
+class UGameplayAbility;
 
 //21-3 inherit IAbilitySystemInterface 73-2 ICombatInterface
 UCLASS()
@@ -68,4 +71,11 @@ protected:
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect>GameplayEffectClass, float Level) const;
 	void InitializeDefaultAttributes() const;
 
+	//98
+	void AddCharacterAbilities();
+
+//98
+private:
+	UPROPERTY(EditAnywhere, Category = "Abilities")
+	TArray <TSubclassOf<UGameplayAbility>> StartupAbilities;
 };
