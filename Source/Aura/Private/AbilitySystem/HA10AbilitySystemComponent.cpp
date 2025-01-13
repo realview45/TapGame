@@ -4,6 +4,8 @@
 #include "AbilitySystem/HA10AbilitySystemComponent.h"
 //87-5
 #include "HA10GameplayTags.h"
+//103
+#include "AbilitySystem/HA10GameplayAbility.h"
 //54
 void UHA10AbilitySystemComponent::AbilityActorInfoSet()
 {
@@ -28,11 +30,50 @@ void UHA10AbilitySystemComponent::AbilityActorInfoSet()
 //98-2
 void UHA10AbilitySystemComponent::AddCharacAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities)
 {
-	for (TSubclassOf<UGameplayAbility>AbilityClass : StartupAbilities)
+	for (const TSubclassOf<UGameplayAbility>AbilityClass : StartupAbilities)
 	{
 		FGameplayAbilitySpec  AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
-		//GiveAbility(AbilitySpec);
-		GiveAbilityAndActivateOnce(AbilitySpec);
+
+		//103
+		if (const UHA10GameplayAbility* HA10Ability = Cast<UHA10GameplayAbility>(AbilitySpec.Ability))
+		{
+			AbilitySpec.DynamicAbilityTags.AddTag(HA10Ability->StartupInputTag);
+			GiveAbility(AbilitySpec);
+		}
+
+
+		//98-2c GiveAbility(AbilitySpec);
+		//103c GiveAbilityAndActivateOnce(AbilitySpec);
+	}
+}
+
+//103-2
+void UHA10AbilitySystemComponent::AbilityInputTagHeld(const FGameplayTag& InputTag)
+{
+	//103-3
+	if (!InputTag.IsValid()) return;
+	for (auto& AbilitySpec : GetActivatableAbilities())//looping through our activatable abilities
+	{
+		if (AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag)) 
+		{
+			AbilitySpecInputPressed(AbilitySpec);//customize ability
+			if (!AbilitySpec.IsActive())//activate ability
+			{
+				TryActivateAbility(AbilitySpec.Handle);
+			}
+		}
+	}
+}
+void UHA10AbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& InputTag)//will know input is released
+{
+	if (!InputTag.IsValid())return;
+	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())//looping through our activatable abilities
+	{
+		if (AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag))//if correct Ability
+		{
+			AbilitySpecInputReleased(AbilitySpec);//customize ability
+
+		}
 	}
 }
 

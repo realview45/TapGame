@@ -17,6 +17,8 @@ struct FInputActionValue;
 class IEnemyInterface;
 //102
 class UHA10InputConfig;
+//103-2
+class UHA10AbilitySystemComponent;
 
 /**
  * 
@@ -61,4 +63,9 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category="Input")
 	TObjectPtr<UHA10InputConfig> InputConfig;
 
+	//103-2
+	UPROPERTY(EditDefaultsOnly, Category="")
+	TObjectPtr<UHA10AbilitySystemComponent> HA10ASC;
+
+	UHA10AbilitySystemComponent* GetASC();
 };
