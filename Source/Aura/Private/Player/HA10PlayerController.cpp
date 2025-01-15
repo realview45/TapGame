@@ -10,11 +10,16 @@
 #include "Input/HA10InputComponent.h"
 //14
 #include "Interaction/EnemyInterface.h"
+//105-2
+#include "HA10GameplayTags.h"
+#include "Components/SplineComponent.h"
 
 AHA10PlayerController::AHA10PlayerController()
 {
 	bReplicates = true;
 
+	//105
+	Spline = CreateDefaultSubobject<USplineComponent>("Spline");
 }
 //14
 void AHA10PlayerController::PlayerTick(float DeltaTime)
@@ -124,19 +129,59 @@ void AHA10PlayerController::CursorTrace()
 //102
 void AHA10PlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 {
-	//103-2c GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Red, *InputTag.ToString());
+	//103-2c 
+	/*GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Red, *InputTag.ToString());*/
+	//105-2
+	if (InputTag.MatchesTagExact(FHA10GameplayTags::Get().InputTag_LMB)) {
+		bTargeting = ThisActor ? true : false;
+		bAutoRunning = false;
+	}
 }
 void AHA10PlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 {
-	//103-2c GEngine->AddOnScreenDebugMessage(2, 3.f, FColor::Blue, *InputTag.ToString());
+	//103-2c 
+	/*GEngine->AddOnScreenDebugMessage(2, 3.f, FColor::Blue, *InputTag.ToString());*/
 	if (GetASC() == nullptr) return;
 	GetASC()->AbilityInputTagReleased(InputTag);
 }
 void AHA10PlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 {
-	//103-2c GEngine->AddOnScreenDebugMessage(3, 3.f, FColor::Green, *InputTag.ToString());
-	if (GetASC() == nullptr) return;
-	GetASC()->AbilityInputTagHeld(InputTag);
+	//103-2c 
+	//GEngine->AddOnScreenDebugMessage(3, 3.f, FColor::Green, *InputTag.ToString());
+	//105-2
+	if (!InputTag.MatchesTagExact(FHA10GameplayTags::Get().InputTag_LMB)) {//not left mouse button
+		if (GetASC())
+		{
+			GetASC()->AbilityInputTagHeld(InputTag);//activate ability(let abilitySC to know held)
+		}
+		return;//inform once for performance
+	}
+	if (bTargeting)//left mouse button and hover actor(enemy)
+	{
+		if (GetASC())
+		{
+			GetASC()->AbilityInputTagHeld(InputTag);
+		}
+	}
+	else
+	{
+		FollowTime += GetWorld()->GetDeltaSeconds();
+
+		FHitResult Hit;
+		if (GetHitResultUnderCursor(ECC_Visibility, false, Hit))
+		{
+			CachedDestination = Hit.ImpactPoint;
+		}
+
+		if (APawn* ControlledPawn = GetPawn())
+		{
+			const FVector WorldDirection = (CachedDestination - ControlledPawn->GetActorLocation()).GetSafeNormal();
+			ControlledPawn->AddMovementInput(WorldDirection);
+		}
+	}
+	//105-2c
+	//if (GetASC() == nullptr) return;
+	//GetASC()->AbilityInputTagHeld(InputTag);
 }
 //103-2
 UHA10AbilitySystemComponent* AHA10PlayerController::GetASC()

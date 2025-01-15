@@ -19,7 +19,8 @@ class IEnemyInterface;
 class UHA10InputConfig;
 //103-2
 class UHA10AbilitySystemComponent;
-
+//105
+class USplineComponent;
 /**
  * 
  */
@@ -68,4 +69,17 @@ private:
 	TObjectPtr<UHA10AbilitySystemComponent> HA10ASC;
 
 	UHA10AbilitySystemComponent* GetASC();
+
+	//105
+	FVector CachedDestination = FVector::ZeroVector;
+	float FollowTime = 0.f;
+	float ShortPressThreshold = 0.5f;
+	bool bAutoRunning = false;
+	bool bTargeting = false;
+	//105
+	UPROPERTY(EditDefaultsOnly)
+	float AutoRunAcceptanceRadius = 50.f;
+
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<USplineComponent> Spline;
 };
