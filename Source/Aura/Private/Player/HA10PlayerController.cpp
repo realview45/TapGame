@@ -110,45 +110,52 @@ void AHA10PlayerController::Move(const FInputActionValue& InputActionValue)
 //14
 void AHA10PlayerController::CursorTrace()
 {
-	FHitResult CursorHit;
+	//108c FHitResult CursorHit;
 	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
 	if (!CursorHit.bBlockingHit)return;
 	LastActor = ThisActor;
 	ThisActor = CursorHit.GetActor();
 
-	if (LastActor == nullptr)
+	//108-2
+	if (LastActor != ThisActor)
 	{
-		if (ThisActor != nullptr)
-		{
-			//B
-			ThisActor->HighlightActor();
-		}
-		else
-		{
-			//A
-		}
+		if (LastActor) LastActor->UnHighlightActor();
+		if (ThisActor) ThisActor->HighlightActor();
 	}
-	else
-	{
-		if (ThisActor == nullptr)
-		{
-			//C
-			LastActor->UnHighlightActor();
-		}
-		else
-		{
-			if (LastActor != ThisActor)
-			{
-				//D
-				LastActor->UnHighlightActor();
-				ThisActor->HighlightActor();
-			}
-			else
-			{
-				//E
-			}
-		}
-	}
+	//108-2c
+	//if (LastActor == nullptr)
+	//{
+	//	if (ThisActor != nullptr)
+	//	{
+	//		//B
+	//		ThisActor->HighlightActor();
+	//	}
+	//	else
+	//	{
+	//		//A
+	//	}
+	//}
+	//else
+	//{
+	//	if (ThisActor == nullptr)
+	//	{
+	//		//C
+	//		LastActor->UnHighlightActor();
+	//	}
+	//	else
+	//	{
+	//		if (LastActor != ThisActor)
+	//		{
+	//			//D
+	//			LastActor->UnHighlightActor();
+	//			ThisActor->HighlightActor();
+	//		}
+	//		else
+	//		{
+	//			//E
+	//		}
+	//	}
+	//}
 }
 //102
 void AHA10PlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
@@ -170,22 +177,16 @@ void AHA10PlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 	//106
 	if (!InputTag.MatchesTagExact(FHA10GameplayTags::Get().InputTag_LMB))
 	{
-		if (GetASC())
-		{
-			GetASC()->AbilityInputTagReleased(InputTag);
-		}
+		if (GetASC())GetASC()->AbilityInputTagReleased(InputTag);
 		return;
 	}
 	if (bTargeting)
 	{
-		if (GetASC())
-		{
-			GetASC()->AbilityInputTagReleased(InputTag);
-		}
+		if (GetASC())GetASC()->AbilityInputTagReleased(InputTag);
 	}
 	else
 	{
-		APawn* ControlledPawn = GetPawn();
+		const APawn* ControlledPawn = GetPawn();
 		if (FollowTime <= ShortPressThreshold && ControlledPawn)
 		{
 			if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
@@ -194,9 +195,9 @@ void AHA10PlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 				for (const FVector& PointLoc : NavPath->PathPoints)
 				{
 					Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
-					DrawDebugSphere(GetWorld(), PointLoc, 8.f, 8, FColor::Green, false, 5.f);
+					//108-3c DrawDebugSphere(GetWorld(), PointLoc, 8.f, 8, FColor::Green, false, 5.f);
 				}
-				CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];//initialize path's last point
+				CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];//107 initialize path's last point
 				bAutoRunning = true;
 			}
 		}
@@ -210,28 +211,21 @@ void AHA10PlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 	//GEngine->AddOnScreenDebugMessage(3, 3.f, FColor::Green, *InputTag.ToString());
 	//105-2
 	if (!InputTag.MatchesTagExact(FHA10GameplayTags::Get().InputTag_LMB)) {//not left mouse button
-		if (GetASC())
-		{
-			GetASC()->AbilityInputTagHeld(InputTag);//activate ability(let abilitySC to know held)
-		}
+		if (GetASC()) GetASC()->AbilityInputTagHeld(InputTag);//activate ability(let abilitySC to know held)
 		return;//inform once for performance
 	}
 	if (bTargeting)//left mouse button and hover actor(enemy)
 	{
-		if (GetASC())
-		{
-			GetASC()->AbilityInputTagHeld(InputTag);
-		}
+		if (GetASC())GetASC()->AbilityInputTagHeld(InputTag);
 	}
 	else
 	{
 		FollowTime += GetWorld()->GetDeltaSeconds();
 
-		FHitResult Hit;
-		if (GetHitResultUnderCursor(ECC_Visibility, false, Hit))
-		{
-			CachedDestination = Hit.ImpactPoint;
-		}
+		//108c FHitResult Hit;
+		//if (GetHitResultUnderCursor(ECC_Visibility, false, Hit))
+		//108
+		if (CursorHit.bBlockingHit)CachedDestination = CursorHit.ImpactPoint;//108 Hit to CursorHit
 
 		if (APawn* ControlledPawn = GetPawn())
 		{

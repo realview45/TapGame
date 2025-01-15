@@ -55,6 +55,8 @@ private:
 	void CursorTrace();
 	TScriptInterface<IEnemyInterface> LastActor;
 	TScriptInterface<IEnemyInterface> ThisActor;
+	//108
+	FHitResult CursorHit;
 
 	//102
 	void AbilityInputTagPressed(FGameplayTag InputTag);

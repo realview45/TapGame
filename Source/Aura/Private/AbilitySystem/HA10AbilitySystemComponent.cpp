@@ -9,7 +9,8 @@
 //54
 void UHA10AbilitySystemComponent::AbilityActorInfoSet()
 {
-	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UHA10AbilitySystemComponent::EffectApplied);
+	//108-4 once this delegate broadcast on the server it will be called in a server and executed on the client
+	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UHA10AbilitySystemComponent::ClientEffectApplied);
 	////87-5 88c
 	//const FHA10GameplayTags& GameplayTags = FHA10GameplayTags::Get();
 	//GEngine->AddOnScreenDebugMessage(
@@ -76,8 +77,8 @@ void UHA10AbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& In
 		}
 	}
 }
-
-void UHA10AbilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilitySystemComponent,
+//108-4 EffectApplied > ClientEffectApplied_Implementation
+void UHA10AbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySystemComponent* AbilitySystemComponent,
 	const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle)
 {
 	GEngine->AddOnScreenDebugMessage(1, 8.f, FColor::Blue, FString("Effect Applied!"));
