@@ -36,6 +36,12 @@ void AMyCharacterBase_HA10::BeginPlay()
 	Super::BeginPlay();
 
 }
+//111-3
+FVector AMyCharacterBase_HA10::GetCombatSocketLocation()
+{
+	check(Weapon);
+	return Weapon->GetSocketLocation(WeaponTipSocketName);
+}
 //71c
 //// Called every frame
 //void AMyCharacterBase_HA10::Tick(float DeltaTime)

@@ -5,7 +5,8 @@
 #include "CoreMinimal.h"
 #include "AbilitySystem/HA10GameplayAbility.h"
 #include "HA10ProjectileSpell.generated.h"
-
+//111
+class AHA10Projectile;
 /**
  * 
  */
@@ -19,4 +20,7 @@ protected:
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
 		const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
 
+	//111
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<AHA10Projectile>ProjectileClass;
 };
