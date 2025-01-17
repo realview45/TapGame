@@ -13,10 +13,18 @@ void UHA10ProjectileSpell::ActivateAbility(const FGameplayAbilitySpecHandle Hand
 	const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
+
+}
+//114
+void UHA10ProjectileSpell::SpawnProjectile()
+{
+	//114
+	//114m move ActivateAbility() to SpawnProjectile()
+	// HasAuthority(&ActivationInfo) to GetAvatarActorFromActorInfo()->HasAuthority()
 	//111c
-	/*UKismetSystemLibrary::PrintString(this, FString("ActivateAbility (C++)"), true, true, FLinearColor::Yellow, 3);*/
-	//111
-	const bool bIsServer = HasAuthority(&ActivationInfo); 
+/*UKismetSystemLibrary::PrintString(this, FString("ActivateAbility (C++)"), true, true, FLinearColor::Yellow, 3);*/
+//111
+	const bool bIsServer = GetAvatarActorFromActorInfo()->HasAuthority();
 	if (!bIsServer)return;
 	//111-3
 	ICombatInterface* CombatInterface = Cast<ICombatInterface>(GetAvatarActorFromActorInfo());
