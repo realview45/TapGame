@@ -24,4 +24,8 @@ public:
 	//115-2
 	UPROPERTY(BlueprintAssignable)
 	FMouseTargetDataSignature ValidData;
+
+	//115-3
+private:
+	virtual void Activate() override;
 };
