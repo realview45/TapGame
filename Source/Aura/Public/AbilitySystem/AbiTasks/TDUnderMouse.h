@@ -1,0 +1,21 @@
+// Fill out your copyright notice in the Description page of Project Settings. 115
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Abilities/Tasks/AbilityTask.h"
+#include "TDUnderMouse.generated.h"
+
+/**
+ * 
+ */
+UCLASS()
+class AURA_API UTDUnderMouse : public UAbilityTask
+{
+	GENERATED_BODY()
+	
+public:
+	UFUNCTION(BlueprintCallable, Category = "Ability|Tasks", meta = (DisplayName = "TargetDataUnderMouse", HidePin = "OwningAbility", DefaultToSelf = "OwningAbility", BlueprintInternalUseOnly = "true"))
+	static UTDUnderMouse* CreateTargetDataUnderMouse(UGameplayAbility* OwningAbility);
+
+};
