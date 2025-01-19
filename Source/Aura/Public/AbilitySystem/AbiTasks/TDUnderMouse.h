@@ -6,8 +6,8 @@
 #include "Abilities/Tasks/AbilityTask.h"
 #include "TDUnderMouse.generated.h"
 
-//115-2
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMouseTargetDataSignature, const FVector&, Data);
+//115-2 117-3 FVector to FGameplayAbilityTargetDataHandle
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMouseTargetDataSignature, const FGameplayAbilityTargetDataHandle&, Data);
 /**
  * 
  */
@@ -28,4 +28,6 @@ public:
 	//115-3
 private:
 	virtual void Activate() override;
+	//117
+	void SendMouseCursorData();
 };
