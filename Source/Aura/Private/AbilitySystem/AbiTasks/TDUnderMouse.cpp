@@ -22,10 +22,22 @@ void UTDUnderMouse::Activate()
 	}
 	else
 	{
-		//TODO: We are on the server, so listen for target data.
+		//118-2
+		const FGameplayAbilitySpecHandle SpecHandle = GetAbilitySpecHandle();
+		const FPredictionKey ActivationPredictionKey = GetActivationPredictionKey();
+		//118 there is a delegate broadcast we've set, we can get that Delegate through ASC
+		AbilitySystemComponent.Get()->AbilityTargetDataSetDelegate(GetAbilitySpecHandle(), 
+			GetActivationPredictionKey()).AddUObject(this, &UTDUnderMouse::OnTargetDataReplicatedCallBack);
+			//we need to know prediction key associated with target data
+			//in order to know that info, we need to func with spechandle for the ability associate with specific task
+			//this func give the delegate so we can bind callback func
+		//118-2														if we don't call this delegate means it hasn't reached server yet
+		const bool bCalledDelegate = AbilitySystemComponent.Get()->CallReplicatedTargetDataDelegatesIfSet(SpecHandle, ActivationPredictionKey);
+		if (!bCalledDelegate)
+		{
+			SetWaitingOnRemotePlayerData();//so we will be waiting data to comeback (set waiting flag and tells ability waiting for playerdata 
+		}
 	}
-
-
 }
 //117
 void UTDUnderMouse::SendMouseCursorData()
@@ -53,5 +65,16 @@ void UTDUnderMouse::SendMouseCursorData()
 	if (ShouldBroadcastAbilityTaskDelegates())
 	{
 		ValidData.Broadcast(DataHandle);//modify Delegate type Vector to DataHandle
+	}
+}
+//118 this func would called replicated data has been received in that case we need broadcast 
+// it so that our ability task in the gameplayability will have its valid data execution pin excuted
+void UTDUnderMouse::OnTargetDataReplicatedCallBack(const FGameplayAbilityTargetDataHandle& DataHandle, FGameplayTag ActivationTag)
+{
+	//notify ASC knows that data has been recieved(no need to keep it cached anymore)
+	AbilitySystemComponent->ConsumeClientReplicatedTargetData(GetAbilitySpecHandle(), GetActivationPredictionKey());
+	if (ShouldBroadcastAbilityTaskDelegates())
+	{
+		ValidData.Broadcast(DataHandle);
 	}
 }

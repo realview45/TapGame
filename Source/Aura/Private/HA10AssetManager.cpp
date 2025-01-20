@@ -3,6 +3,9 @@
 
 #include "HA10AssetManager.h"
 #include "HA10GameplayTags.h"
+//118-3
+//#include "AbilitySystemGlobals.h"
+
 UHA10AssetManager& UHA10AssetManager::Get()
 {
 	check(GEngine);
@@ -16,4 +19,6 @@ void UHA10AssetManager::StartInitialLoading()
 	Super::StartInitialLoading();
 
 	FHA10GameplayTags::InitializeNativeGameplayTags();
+	//118-3 Initialize somethings including TargetData
+	//UAbilitySystemGlobals::Get().InitGlobalData();
 }

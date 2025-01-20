@@ -7,7 +7,7 @@
 #include "TDUnderMouse.generated.h"
 
 //115-2 117-3 FVector to FGameplayAbilityTargetDataHandle
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMouseTargetDataSignature, const FGameplayAbilityTargetDataHandle&, Data);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMouseTargetDataSignature, const FGameplayAbilityTargetDataHandle&, DataHandle);
 /**
  * 
  */
@@ -30,4 +30,6 @@ private:
 	virtual void Activate() override;
 	//117
 	void SendMouseCursorData();
+	//118
+	void OnTargetDataReplicatedCallBack(const FGameplayAbilityTargetDataHandle& DataHandle, FGameplayTag ActivationTag);
 };
