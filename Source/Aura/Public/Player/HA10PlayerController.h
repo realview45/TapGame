@@ -48,6 +48,12 @@ private:
 	TObjectPtr<UInputMappingContext> HA10Context;
 	UPROPERTY(EditAnywhere, Category = "Input") 
 	TObjectPtr<UInputAction> MoveAction;
+	//120-3
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> ShiftAction;
+	void ShiftPressed() { bShiftKeyDown = true; };
+	void ShiftReleased() { bShiftKeyDown = false; };
+	bool bShiftKeyDown = false;
 
 	void Move(const FInputActionValue& InputActionValue);
 

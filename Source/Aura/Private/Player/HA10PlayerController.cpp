@@ -86,6 +86,9 @@ void AHA10PlayerController::SetupInputComponent()
 	//102c
 	//UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
 	HA10InputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AHA10PlayerController::Move);
+	//120-3
+	HA10InputComponent->BindAction(ShiftAction, ETriggerEvent::Started, this, &AHA10PlayerController::ShiftPressed);
+	HA10InputComponent->BindAction(ShiftAction, ETriggerEvent::Completed, this, &AHA10PlayerController::ShiftReleased);
 	//102
 	HA10InputComponent->BindAbilityActions(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);
 
@@ -180,11 +183,10 @@ void AHA10PlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 		if (GetASC())GetASC()->AbilityInputTagReleased(InputTag);
 		return;
 	}
-	if (bTargeting)
-	{
-		if (GetASC())GetASC()->AbilityInputTagReleased(InputTag);
-	}
-	else
+	//120-3inform the ASC we released the mouse anyway
+	if (GetASC())GetASC()->AbilityInputTagReleased(InputTag);
+
+	if (!bTargeting && !bShiftKeyDown)//120-3 not and not bShiftKeyDown
 	{
 		const APawn* ControlledPawn = GetPawn();
 		if (FollowTime <= ShortPressThreshold && ControlledPawn)
@@ -214,7 +216,7 @@ void AHA10PlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 		if (GetASC()) GetASC()->AbilityInputTagHeld(InputTag);//activate ability(let abilitySC to know held)
 		return;//inform once for performance
 	}
-	if (bTargeting)//left mouse button and hover actor(enemy)
+	if (bTargeting || bShiftKeyDown)//left mouse button and hover actor(enemy) 120-3 or bShiftKeyDown
 	{
 		if (GetASC())GetASC()->AbilityInputTagHeld(InputTag);
 	}
