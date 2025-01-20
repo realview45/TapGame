@@ -9,6 +9,8 @@
 //109-2
 class USphereComponent;
 class UProjectileMovementComponent;
+//122
+class UNiagaraSystem;
 
 UCLASS()
 class AURA_API AHA10Projectile : public AActor
@@ -39,4 +41,9 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USphereComponent> Sphere;
 
+	//122
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UNiagaraSystem> ImpactEffect;	
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USoundBase> ImpactSound;
 };
