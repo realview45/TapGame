@@ -4,6 +4,11 @@
 
 #include "Actor/HA10Projectile.h"
 
+//122
+#include "Kismet/GameplayStatics.h"
+#include "Components/AudioComponent.h"
+#include "NiagaraFunctionLibrary.h"
+
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 
@@ -41,6 +46,13 @@ void AHA10Projectile::BeginPlay()
 void AHA10Projectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, 
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	//122
+	UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator::ZeroRotator);
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
+	if(HasAuthority())
+	{
+		Destroy();
+	}
 }
 
 //// Called every frame
