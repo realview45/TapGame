@@ -6,13 +6,16 @@
 #include "AbilitySystemComponent.h"
 //98
 #include "AbilitySystem/HA10AbilitySystemComponent.h"
-
+//120-2
+#include "Components/CapsuleComponent.h"
 // Sets default values
 AMyCharacterBase_HA10::AMyCharacterBase_HA10()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	//120-2
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	GetMesh()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
 	//07-2 CreateDefaultSubobject�� Fname(��Ʈ��)�� �޾Ƽ� "Weapon"�� �Է� (FString�� �̸� WideCharacter�� �Ͻ������� ��ȯ������ Fname�� �׳� �̻��·� ����)
 	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon");
 	//07-3 Character Class���� ��ӵ� GetMesh()���, WeaponHandSocket�̸��� ���Ͽ� ���̱�, �ݸ�������

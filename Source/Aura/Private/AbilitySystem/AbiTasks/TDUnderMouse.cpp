@@ -38,7 +38,7 @@ void UTDUnderMouse::Activate()
 			SetWaitingOnRemotePlayerData();//so we will be waiting data to comeback (set waiting flag and tells ability waiting for playerdata 
 		}
 	}
-}z
+}
 //117
 void UTDUnderMouse::SendMouseCursorData()
 {

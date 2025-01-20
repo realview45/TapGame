@@ -19,9 +19,9 @@ class AURA_API UHA10ProjectileSpell : public UHA10GameplayAbility
 protected:
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
 		const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
-	//114
+	//114 120 const FVector& ProjectileTargetLocation
 	UFUNCTION(BlueprintCallable, Category = "Projectile")
-	void SpawnProjectile();
+	void SpawnProjectile(const FVector& ProjectileTargetLocation);
 
 	//111
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)

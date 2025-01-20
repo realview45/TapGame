@@ -15,8 +15,8 @@ void UHA10ProjectileSpell::ActivateAbility(const FGameplayAbilitySpecHandle Hand
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
 }
-//114
-void UHA10ProjectileSpell::SpawnProjectile()
+//114 120 const FVector& ProjectileTargetLocation
+void UHA10ProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocation)
 {
 	//114
 	//114m move ActivateAbility() to SpawnProjectile()
@@ -31,10 +31,15 @@ void UHA10ProjectileSpell::SpawnProjectile()
 	if (CombatInterface)
 	{
 		const FVector SocketLocation = CombatInterface->GetCombatSocketLocation();
+		//120
+		FRotator Rotation = (ProjectileTargetLocation - SocketLocation).Rotation();
+		Rotation.Pitch = 0.f;//up and down angle
 		//111
 		FTransform SpawnTransform;
 		SpawnTransform.SetLocation(SocketLocation);///111-3
-		//TODO: Set the Projectile Rotation.
+		//120
+		SpawnTransform.SetRotation(Rotation.Quaternion());
+
 		AHA10Projectile* Projectile = GetWorld()->SpawnActorDeferred<AHA10Projectile>(
 			ProjectileClass,
 			SpawnTransform, GetOwningActorFromActorInfo(),
