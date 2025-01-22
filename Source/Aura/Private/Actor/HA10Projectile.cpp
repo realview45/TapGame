@@ -38,23 +38,43 @@ AHA10Projectile::AHA10Projectile()
 void AHA10Projectile::BeginPlay()
 {
 	Super::BeginPlay();
+	//122-4
+	SetLifeSpan(LifeSpan);
 	//109-2
 	Sphere->OnComponentBeginOverlap.AddDynamic(this, &AHA10Projectile::OnSphereOverlap);
+	//122-4
+	LoopingSoundComponent = UGameplayStatics::SpawnSoundAttached(LoopingSound, GetRootComponent());
 }
-
+//122-3
+void AHA10Projectile::Destroyed()
+{
+	if (!bHit && !HasAuthority())
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator::ZeroRotator);
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
+		//122-4
+		LoopingSoundComponent->Stop();
+	}
+	Super::Destroyed();
+}
 //109-2
 void AHA10Projectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, 
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)//if projectile touch enemy
 {
 	//122
 	UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator::ZeroRotator);
 	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
-	if(HasAuthority())
+	//122-4
+	LoopingSoundComponent->Stop();
+	if (HasAuthority())
 	{
-		Destroy();
+		//Destroy();
+	}
+	else
+	{
+		bHit = true;
 	}
 }
-
 //// Called every frame
 //void AHA10Projectile::Tick(float DeltaTime)
 //{

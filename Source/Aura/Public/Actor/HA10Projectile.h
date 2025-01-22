@@ -32,6 +32,8 @@ protected:
 	UFUNCTION()
 	void OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	//122-3
+	virtual void Destroyed() override;
 
 //public:	
 	// Called every frame
@@ -41,9 +43,19 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USphereComponent> Sphere;
 
+	//122-2
+	bool bHit = false;
+	//122-4
+	UPROPERTY(EditDefaultsOnly)
+	float LifeSpan = 15.f;
 	//122
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UNiagaraSystem> ImpactEffect;	
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<USoundBase> ImpactSound;
+	UPROPERTY(EditAnywhere)
+	//122-4
+	TObjectPtr<USoundBase> LoopingSound;
+	UPROPERTY()
+	TObjectPtr<UAudioComponent> LoopingSoundComponent;
 };
