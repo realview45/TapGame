@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
+
 //110
 
 #include "AbilitySystem/Abilities/HA10ProjectileSpell.h"
-
 //111-3
 #include "Actor/HA10Projectile.h"
 #include "Interaction/CombatInterface.h"
@@ -30,13 +30,19 @@ void UHA10ProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocati
 	ICombatInterface* CombatInterface = Cast<ICombatInterface>(GetAvatarActorFromActorInfo());
 	if (CombatInterface)
 	{
-		const FVector SocketLocation = CombatInterface->GetCombatSocketLocation();
+		FVector SocketLocation = CombatInterface->GetCombatSocketLocation();
 		//120
 		FRotator Rotation = (ProjectileTargetLocation - SocketLocation).Rotation();
+
 		Rotation.Pitch = 0.f;//up and down angle
+		//122my my initialize vector
+		FVector mmRot = (ProjectileTargetLocation - SocketLocation) + FVector(0,0,90);
+		SocketLocation += (mmRot/mmRot.Size())*100;//add normalized vector 1m
+
 		//111
 		FTransform SpawnTransform;
-		SpawnTransform.SetLocation(SocketLocation);///111-3
+		SpawnTransform.SetLocation(SocketLocation);//111-3 122my 
+
 		//120
 		SpawnTransform.SetRotation(Rotation.Quaternion());
 

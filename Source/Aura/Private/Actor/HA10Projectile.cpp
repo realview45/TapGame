@@ -28,6 +28,7 @@ AHA10Projectile::AHA10Projectile()
 	Sphere->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Overlap);
 	Sphere->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
 
+
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovement");
 	ProjectileMovement->InitialSpeed = 550.f;
 	ProjectileMovement->MaxSpeed = 550.f;
@@ -43,7 +44,7 @@ void AHA10Projectile::BeginPlay()
 	//109-2
 	Sphere->OnComponentBeginOverlap.AddDynamic(this, &AHA10Projectile::OnSphereOverlap);
 	//122-4
-	LoopingSoundComponent = UGameplayStatics::SpawnSoundAttached(LoopingSound, GetRootComponent());
+	//LoopingSoundComponent = UGameplayStatics::SpawnSoundAttached(LoopingSound, GetRootComponent());
 }
 //122-3
 void AHA10Projectile::Destroyed()
@@ -53,7 +54,7 @@ void AHA10Projectile::Destroyed()
 		UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator::ZeroRotator);
 		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
 		//122-4
-		LoopingSoundComponent->Stop();
+		//LoopingSoundComponent->Stop();
 	}
 	Super::Destroyed();
 }
@@ -65,10 +66,10 @@ void AHA10Projectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, 
 	UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator::ZeroRotator);
 	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
 	//122-4
-	LoopingSoundComponent->Stop();
+	//LoopingSoundComponent->Stop();
 	if (HasAuthority())
 	{
-		//Destroy();
+		Destroy();
 	}
 	else
 	{
