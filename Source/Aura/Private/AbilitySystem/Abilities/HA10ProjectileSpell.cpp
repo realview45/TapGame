@@ -3,9 +3,12 @@
 //110
 
 #include "AbilitySystem/Abilities/HA10ProjectileSpell.h"
+//122my
+#include "NiagaraFunctionLibrary.h"
 //111-3
 #include "Actor/HA10Projectile.h"
 #include "Interaction/CombatInterface.h"
+
 
 //111c 110-2
 //#include "Kismet/KismetSystemLibrary.h"
@@ -51,6 +54,8 @@ void UHA10ProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocati
 			SpawnTransform, GetOwningActorFromActorInfo(),
 			Cast<APawn>(GetOwningActorFromActorInfo()),
 			ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+		//122-2my
+		//UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ProjectileEffectClass, SocketLocation, Rotation);
 		//TODO: Givethe Projectile a Gameplay Effect Spec for causing Damage.
 		Projectile->FinishSpawning(SpawnTransform);//111-4
 	}

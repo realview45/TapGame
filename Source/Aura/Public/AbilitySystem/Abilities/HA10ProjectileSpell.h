@@ -7,6 +7,8 @@
 #include "HA10ProjectileSpell.generated.h"
 //111
 class AHA10Projectile;
+//122-2my
+class UNiagaraSystem;
 /**
  * 
  */
@@ -26,4 +28,7 @@ protected:
 	//111
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSubclassOf<AHA10Projectile>ProjectileClass;
+	//122-2my
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UNiagaraSystem> ProjectileEffectClass;
 };
