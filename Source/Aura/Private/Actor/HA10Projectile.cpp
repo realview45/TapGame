@@ -4,6 +4,9 @@
 
 #include "Actor/HA10Projectile.h"
 
+//123-2
+#include "Aura/Aura.h"
+
 //122
 #include "Kismet/GameplayStatics.h"
 #include "Components/AudioComponent.h"
@@ -22,6 +25,9 @@ AHA10Projectile::AHA10Projectile()
 	//109-2
 	Sphere = CreateDefaultSubobject<USphereComponent>("Sphere");
 	SetRootComponent(Sphere);
+	//123-2
+	Sphere->SetCollisionObjectType(ECC_Projectile);
+
 	Sphere->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	Sphere->SetCollisionResponseToAllChannels(ECR_Ignore);
 	Sphere->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Overlap);
