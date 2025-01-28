@@ -8,6 +8,8 @@
 #include "AbilitySystem/HA10AbilitySystemComponent.h"
 //120-2
 #include "Components/CapsuleComponent.h"
+//123-3
+#include "Aura/Aura.h"
 // Sets default values
 AMyCharacterBase_HA10::AMyCharacterBase_HA10()
 {
@@ -16,6 +18,10 @@ AMyCharacterBase_HA10::AMyCharacterBase_HA10()
 	//120-2
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
 	GetMesh()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	//123-3
+	GetMesh()->SetCollisionResponseToChannel(ECC_Projectile, ECR_Overlap);
+	GetMesh()->SetGenerateOverlapEvents(true);
+
 	//07-2 CreateDefaultSubobject�� Fname(��Ʈ��)�� �޾Ƽ� "Weapon"�� �Է� (FString�� �̸� WideCharacter�� �Ͻ������� ��ȯ������ Fname�� �׳� �̻��·� ����)
 	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon");
 	//07-3 Character Class���� ��ӵ� GetMesh()���, WeaponHandSocket�̸��� ���Ͽ� ���̱�, �ݸ�������
