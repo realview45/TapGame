@@ -9,6 +9,8 @@
 class AHA10Projectile;
 //122-2my
 class UNiagaraSystem;
+//124
+class UGameplayEffect;
 /**
  * 
  */
@@ -27,8 +29,13 @@ protected:
 
 	//111
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TSubclassOf<AHA10Projectile>ProjectileClass;
+	TSubclassOf<AHA10Projectile> ProjectileClass;
 	//122-2my
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UNiagaraSystem> ProjectileEffectClass;
+
+	//124
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<UGameplayEffect> DamageEffectClass;
+
 };

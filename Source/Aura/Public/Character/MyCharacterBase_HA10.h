@@ -67,6 +67,10 @@ protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Attributes")
 	TSubclassOf<UGameplayEffect> DefaultSecondaryAttributes;
 
+	//124mm
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
+	TSubclassOf<UGameplayEffect> DefaultVitalAttributes;
+
 	//75
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
 	TSubclassOf<UGameplayEffect> InitializeAttributes;

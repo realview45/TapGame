@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+//124
+#include "GameplayEffectTypes.h"
+
 #include "HA10Projectile.generated.h"
 
 //109-2
@@ -24,6 +27,10 @@ public:
 	//109-3
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
+
+	//124
+	UPROPERTY(BlueprintReadWrite, meta=(ExposeOnSpawn = true))
+	FGameplayEffectSpecHandle DamageEffectSpecHandle;
 
 protected:
 	// Called when the game starts or when spawned

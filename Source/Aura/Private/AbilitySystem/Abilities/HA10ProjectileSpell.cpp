@@ -5,6 +5,10 @@
 #include "AbilitySystem/Abilities/HA10ProjectileSpell.h"
 //122my
 #include "NiagaraFunctionLibrary.h"
+//124
+#include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
+
 //111-3
 #include "Actor/HA10Projectile.h"
 #include "Interaction/CombatInterface.h"
@@ -56,7 +60,11 @@ void UHA10ProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocati
 			ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
 		//122-2my
 		//UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ProjectileEffectClass, SocketLocation, Rotation);
-		//TODO: Givethe Projectile a Gameplay Effect Spec for causing Damage.
+		//TODO: Givethe Projectile a Gameplay Effect Spec for causing Damage. 124
+		const UAbilitySystemComponent* SourceASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetAvatarActorFromActorInfo());
+		const FGameplayEffectSpecHandle SpecHandle = SourceASC->MakeOutgoingSpec(DamageEffectClass,GetAbilityLevel(),SourceASC->MakeEffectContext());
+		Projectile->DamageEffectSpecHandle = SpecHandle;//set spechandle on ha10projectile
+
 		Projectile->FinishSpawning(SpawnTransform);//111-4
 	}
 }

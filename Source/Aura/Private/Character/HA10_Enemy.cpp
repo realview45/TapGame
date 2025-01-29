@@ -63,4 +63,6 @@ void AHA10_Enemy::InitAbilityActorInfo()
 {
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 	Cast<UHA10AbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
+	//124
+	InitializeDefaultAttributes();
 }
